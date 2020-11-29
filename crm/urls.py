@@ -11,8 +11,12 @@ urlpatterns = [
     #Homepage
     path("", views.HomeView.as_view(), name="home"),
 
-    #Core app
+    #Apps
     path('', include('core.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('contacts/', include('contacts.urls')),
+
+
 ]
 
 if settings.DEBUG:

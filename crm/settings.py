@@ -15,13 +15,12 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['crm.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['biwares-crm.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,8 +28,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'core.apps.CoreConfig',
+    'accounts.apps.AccountsConfig',
+    'contacts.apps.ContactsConfig',
+    'opportunities.apps.OpportunitiesConfig',
+    'tasks.apps.TasksConfig',
+
     'widget_tweaks',
     'social_django',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [

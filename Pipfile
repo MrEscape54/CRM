@@ -12,6 +12,7 @@ psycopg2 = "*"
 python-decouple = "*"
 django-widget-tweaks = "*"
 social-auth-app-django = "==4.0.*"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "*"}
 
 [requires]
 python_version = "3.9"
