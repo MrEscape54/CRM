@@ -7,6 +7,8 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('tinymce/', include('tinymce.urls')),
 
     #Homepage
     path("", views.HomeView.as_view(), name="home"),
