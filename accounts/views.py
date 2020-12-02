@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class IndexView(TemplateView):
-    template_name = "account/index.html"
+
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = "accounts/index.html"
+    login_url = '/'

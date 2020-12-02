@@ -7,6 +7,5 @@ from . import views
 urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('accounts/logout/', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
-    path("crm/", views.IndexView.as_view(), name="index")
 ]
 

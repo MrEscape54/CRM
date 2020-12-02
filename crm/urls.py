@@ -17,8 +17,8 @@ urlpatterns = [
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),
     path('contacts/', include('contacts.urls')),
-
-
+    path('opportunities/', include('opportunities.urls')),
+    path('tasks/', include('tasks.urls')),
 ]
 
 if settings.DEBUG:

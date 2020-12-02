@@ -1,3 +1,39 @@
-h1{
-    color: green;
+.ui.menu .item>img:not(.ui) {
+    width: 1em;
 }
+
+.ui.menu .item{
+   color: white;
+}
+
+.right.menu .ui.button {
+    padding: 0;
+    background-color: black;
+}
+
+.ui.secondary.pointing.menu .dropdown.item:hover, .ui.secondary.pointing.menu .link.item:hover, .ui.secondary.pointing.menu a.item:hover {
+    background-color: transparent;
+    color:rgb(179, 179, 179) !important;
+}
+
+.right.menu {
+    align-items: center !important;
+  }
+  
+  .ui.secondary.menu {
+    background-color: black !important;
+  }
+  
+  .ui.secondary.pointing.menu .item {
+    align-self: baseline !important;
+  }
+  
+  .ui.menu:not(.vertical) .item > .button {
+    padding: 7px 1.14285714em !important; 
+  }
+  
+  .ui.secondary.pointing.menu p {
+    color: darkcyan !important;
+    font-family: fantasy !important;
+    font-weight: 700 !important;
+  }
