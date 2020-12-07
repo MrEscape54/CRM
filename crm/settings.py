@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'rest_framework',
     'tinymce',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -142,6 +143,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static',]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (BASE_DIR / 'media/')
+
+
+# drf-spectacular
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
 
 

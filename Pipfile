@@ -15,6 +15,7 @@ social-auth-app-django = "==4.0.*"
 django-phonenumber-field = {extras = ["phonenumberslite"], version = "*"}
 djangorestframework = "*"
 django-tinymce = "*"
+drf-spectacular = "*"
 
 [requires]
 python_version = "3.9"
