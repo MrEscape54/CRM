@@ -13,6 +13,7 @@
   <div class="ui accordion">
     
     {% for status in status_list %}
+    
       <div class="title">
         <i class="dropdown icon"></i>
         <h3>{{status.grouper}}s</h3>
@@ -24,9 +25,8 @@
             <tr>
               <th>Name  <i class="sort icon"></i></th>
               <th>Industry <i class="sort icon"></th>
-              <th>Category  <i class="sort icon"></th>
               <th>Country  <i class="sort icon"></th>
-              <th>Contact  <i class="sort icon"></th>
+              <th>Main Contact  <i class="sort icon"></th>
               <th>Responsible  <i class="sort icon"></th>
               <th>Address  <i class="sort icon"></th>
               <th>Web  <i class="sort icon"></th>
@@ -34,115 +34,36 @@
           </thead>
 
           <tbody>
+
           {% for account in status.list %}
             <tr>
               {% comment %} TODO: Agregar link para modal de edit / remove {% endcomment %}
-              <td id="update_profile" data-tooltip="Click for details" data-position="top left" data-inverted=""><a href="#">{{ account.name}}</a></td>
+              <td class="modal-button" data-account="{{account.slug}}" data-tooltip="Click for details" data-position="top left" data-inverted=""><a href="#">{{account.name}}</a></td>
               <td>{{ account.industry}}</td>
-              <td>{{ account.category}}</td>
-              <td>{{ account.country}}</td>
-              {% comment %} TODO: Agregar link para modal y ver mas contactos {% endcomment %}
-              <td data-tooltip="Click for details" data-position="top left" data-inverted=""><a href="#">{{ account.contacts.first}}</a></td>
+              <td><i class="{{account.country|lower}} flag"></i>{{ account.country}}</td>
+              <td>{{ account.contacts.first}}</td>
               <td>{{ account.assigned_to.get_full_name}}</td>
               <td>{{ account.address}}</td>
               <td><a href="{{ account.website}}" target="_blank">Visit</a></td>
             </tr>
 
-            {% comment %} MODAL {% endcomment %}
-            <div class="ui modal">
-              <i class="close icon"></i>
-              <div class="header">
-                <i class="building right icon"></i> {{account.name}}
-              </div>
-              <div class="image content">
-                <div class="description">
-                  <div class="ui header blue">Account Detail</div>
-                  <div class="ui relaxed divided list">
-                    <div class="item">
-                      <i class="large sitemap middle aligned grey icon"></i>
-                      <div class="content">
-                        <div class="header">Related information:</div>
-                        <div class="description"><b>Parent Account:</b> {{account.parent_company}}</div>
-                        <div class="description"><b>Category:</b> {{account.parent_company.category}}</div>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <i class="large industry middle aligned grey icon"></i>
-                      <div class="content">
-                        <div class="header">Company Information:</div>
-                        <div class="description"><b>Country:</b> {{account.country}}</div>
-                        <div class="description"><b>Address:</b> {{account.address}}</div>
-                        <div class="description"><b>Industry:</b> {{account.industry}}</div>
-                        <div class="description"><b>Web:</b> <a href="{{account.website}}" target="_blank">{{account.website}}</a></div>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <i class="large user middle aligned grey icon"></i>
-                      <div class="content">
-                        <div class="header">Asigned to:</div>
-                        <div class="description">{{account.assigned_to.get_full_name}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="description">
-                  <div class="ui header blue">Contacts</div>
-
-                  
-
-                    <div class="ui relaxed divided list">
-                    {% for contact in account.contacts.all %}
-                      <div class="item">
-                        <i class="large address card middle aligned  grey icon"></i>
-                          <div class="content">
-                            <div class="header">{{ contact}}</div>
-                            <div class="description"><b>Location:</b> {{ contact.location}}</div>
-                            <div class="description"><b>Email:</b> <a href="mailto:{{contact.email}}">{{ contact.email|lower}}</a></div>
-                            <div class="description"><b>Phone:</b> {{ contact.phone}}</div>
-                            <div class="description"</b> {{ contact.position}}</div>
-                          </div>
-                      </div>
-                    {% endfor %}
-                    </div>
-
-                   
-
-                </div>
-
-              </div>
-
-              <div class="actions">
-                <div class="ui black deny button">
-                  Leave
-                </div>
-                <div class="ui positive right labeled icon button">
-                  Edit
-                  <i class="edit icon"></i>
-                </div>
-              </div>
-            </div>
-
+            {% include 'accounts/modals.html' %}
 
             {% endfor %}
+
           </tbody>
         </table>
       </div>
       <br>
+
     {% endfor %}
+
   </div>
 
 {% endblock content %}
 
 {% block javascript %}
-  <script src="{% static 'global/global.js' %}"></script>  
 
-  <script>
-  $(document).ready(function(){
-    $('#update_profile').click(function(){
-      $('.ui.modal').modal('show');
-      });
-  });
-  </script>
+  <script src="{% static 'global/global.js' %}"></script>  
 
 {% endblock javascript %}

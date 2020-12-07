@@ -1,0 +1,80 @@
+<div class="ui modal" id="account_{{account.slug}}">
+    <i class="close icon"></i>
+    <div class="header">
+    <i class="building right icon"></i> {{account.name}}
+    </div>
+    <div class="image content">
+    <div class="description">
+        <div class="ui header blue">Account Detail</div>
+        <div class="ui relaxed divided list">
+        <div class="item">
+            <i class="large sitemap middle aligned grey icon"></i>
+            <div class="content">
+            <div class="header">Related information:</div>
+            <div class="description"><b>Parent Account:</b> {{account.parent_company}}</div>
+            <div class="description"><b>Category:</b> {{account.parent_company.category}}</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large industry middle aligned grey icon"></i>
+            <div class="content">
+            <div class="header">Company Information:</div>
+            <div class="description"><b>Country:</b>{{account.country}} - <i class="{{account.country|lower}} flag"></i></div>
+            <div class="description"><b>Address:</b> {{account.address}}</div>
+            <div class="description"><b>Industry:</b> {{account.industry}}</div>
+            <div class="description"><b>Web:</b> <a href="{{account.website}}" target="_blank">{{account.website}}</a></div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large user middle aligned grey icon"></i>
+            <div class="content">
+            <div class="header">Asigned to:</div>
+            <div class="description">{{account.assigned_to.get_full_name}}</div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="description">
+        <div class="ui header blue">Contacts</div>
+        <div class="ui relaxed divided list">
+
+        {% for contact in account.contacts.all %}
+            <div class="item">
+            <i class="large address card middle aligned  grey icon"></i>
+                <div class="content">
+                <div class="header">{{ contact}}</div>
+                <div class="description"><b>Location:</b> {{contact.location}} - <i class="{{contact.location|lower}} flag"></i></div>
+                <div class="description"><b>Email:</b> <a href="mailto:{{contact.email}}">{{ contact.email|lower}}</a></div>
+                <div class="description"><b>Phone:</b> {{ contact.phone}}</div>
+                <div class="description"</b> {{ contact.position}}</div>
+                </div>
+            </div>
+        {% endfor %}
+
+        </div>
+    </div>
+
+    </div>
+
+    <div class="actions">
+    <div class="ui black deny button">
+        Leave
+    </div>
+    <div class="ui positive right labeled icon button">
+        Edit Account
+        <i class="edit icon"></i>
+    </div>
+    </div>
+</div>
+
+<script>
+
+    document.querySelectorAll('.modal-button').forEach((button) => {
+        button.onclick = function () {
+            const modal = this.dataset.account;
+            $(`#account_${modal}`).modal('show');
+        }
+    });
+
+  </script>
