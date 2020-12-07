@@ -1,35 +1,34 @@
 from django.utils.translation import ugettext_lazy as _
 
 ACC_INDUSTRY = (
-    ("ADVERTISING", "Advertising"),
-    ("AGRICULTURE", "Agriculture"),
-    ("APPAREL & ACCESSORIES", "Apparel & Accesories"),
-    ("AUTOMOTIVE", "Automotive"),
-    ("BANKING", "Banking"),
-    ("BIOTECHNOLOGY", "Biotechnology"),
-    ("BUILDING MATERIALS & EQUIPMENT", "Building, Material & Equipment"),
-    ("CHEMICAL", "Chemical"),
-    ("EDUCATION", "Education"),
-    ("ELECTRONICS", "Electronics"),
-    ("UTILITIES", "Utilities"),
-    ("OIL & GAS", "Oil & Gas"),
-    ("ENTERTAINMENT & LEISURE", "Entertainment & Leisure"),
-    ("FINANCE", "Finance"),
-    ("FOOD & BEVERAGE", "Food & Beverage"),
-    ("GROCERY", "Grocery"),
-    ("HEALTHCARE", "Healthcare"),
-    ("INSURANCE", "Insurance"),
-    ("LEGAL", "Legal"),
-    ("MANUFACTURING", "Manufacturing"),
-    ("PUBLISHING", "Publishing"),
-    ("REAL ESTATE", "Real State"),
-    ("SERVICE", "Service"),
-    ("SOFTWARE", "Software"),
-    ("SPORTS", "Sports"),
-    ("TECHNOLOGY", "Technology"),
-    ("TELECOMMUNICATIONS", "Telecommunications"),
-    ("TRANSPORTATION", "Transportation"),
-    ("OTHER", "Other")
+    ("Advertising", "Advertising"),
+    ("Agriculture", "Agriculture"),
+    ("Apparel & Accesories", "Apparel & Accesories"),
+    ("Automotive", "Automotive"),
+    ("Banking", "Banking"),
+    ("Biotechnology", "Biotechnology"),
+    ("Building, Material & Equipment", "Building, Material & Equipment"),
+    ("Chemical", "Chemical"),
+    ("Education", "Education"),
+    ("Electronics", "Electronics"),
+    ("Utilities", "Utilities"),
+    ("Oil & Gas", "Oil & Gas"),
+    ("Entertainment & Leisure", "Entertainment & Leisure"),
+    ("Finance", "Finance"),
+    ("Food & Beverage", "Food & Beverage"),
+    ("Grocery", "Grocery"),
+    ("Healthcare", "Healthcare"),
+    ("Insurance", "Insurance"),
+    ("Legal", "Legal"),
+    ("Manufacturing", "Manufacturing"),
+    ("Publishing", "Publishing"),
+    ("Real State", "Real State"),
+    ("Service", "Service"),
+    ("Sports", "Sports"),
+    ("Technology", "Technology"),
+    ("Telecommunications", "Telecommunications"),
+    ("Transportation", "Transportation"),
+    ("Other", "Other")
 )
 
 OPP_SOURCE = (
@@ -50,21 +49,19 @@ PRIORITY_CHOICE = (
 )
 
 OPP_STAGES = (
-    ("QUALIFICATION", "QUALIFICATION"),
-    ("NEEDS ANALYSIS", "NEEDS ANALYSIS"),
-    ("VALUE PROPOSITION", "VALUE PROPOSITION"),
-    ("ID.DECISION MAKERS", "ID.DECISION MAKERS"),
-    ("PERCEPTION ANALYSIS", "PERCEPTION ANALYSIS"),
-    ("PROPOSAL/PRICE QUOTE", "PROPOSAL/PRICE QUOTE"),
-    ("NEGOTIATION/REVIEW", "NEGOTIATION/REVIEW"),
-    ("CLOSED WON", "CLOSED WON"),
-    ("CLOSED LOST", "CLOSED LOST"),
+    ("Identification", "IDENTIFICATION"),
+    ("In Contact", "IN CONTACT"),
+    ("Under Analysis", "UNDER ANALYSIS"),
+    ("Price Quote", "PRICE QUOTE"),
+    ("Negotiation/Review", "NEGOTIATION/REVIEW"),
+    ("Closed Won", "CLOSED WON"),
+    ("Colsed Lost", "CLOSED LOST"),
 )
 
 ACC_STATUS = (
     ('Client', 'Client'),
     ('Prospect', 'Prospect'),
-    ('Ex-Client', ('Ex-Client'))
+    ('Former Client', ('Former Client'))
 )
 
 
@@ -77,25 +74,25 @@ ACC_CATEGORY = (
 )
 
 COUNTRIES = (
-    ("AR", _("Argentina")),
-    ("BO", _("Bolivia")),
-    ("BR", _("Brazil")),
-    ("CO", _("Colombia")),
-    ("CR", _("Costa Rica")),
-    ("EC", _("Ecuador")),
-    ("SV", _("El Salvador")),
-    ("GT", _("Guatemala")),
-    ("HN", _("Honduras")),
-    ("MX", _("Mexico")),
-    ("NI", _("Nicaragua")),
-    ("PA", _("Panama")),
-    ("PY", _("Paraguay")),
-    ("PE", _("Peru")),
-    ("ES", _("Spain")),
-    ("TT", _("Trinidad and Tobago")),
-    ("US", _("United States")),
-    ("UY", _("Uruguay")),
-    ("VE", _("Venezuela")),
+    ("Argentina", _("Argentina")),
+    ("Bolivia", _("Bolivia")),
+    ("Brazil", _("Brazil")),
+    ("Colombia", _("Colombia")),
+    ("Costa Rica", _("Costa Rica")),
+    ("Ecuador", _("Ecuador")),
+    ("El Salvador", _("El Salvador")),
+    ("Guatemala", _("Guatemala")),
+    ("Honduras", _("Honduras")),
+    ("Mexico", _("Mexico")),
+    ("Nicaragua", _("Nicaragua")),
+    ("Panama", _("Panama")),
+    ("Paraguay", _("Paraguay")),
+    ("Peru", _("Peru")),
+    ("Spain", _("Spain")),
+    ("Trinidad and Tobago", _("Trinidad and Tobago")),
+    ("United States", _("United States")),
+    ("Uruguay", _("Uruguay")),
+    ("Venezuela", _("Venezuela")),
 )
 
 CURRENCY_CODES = (

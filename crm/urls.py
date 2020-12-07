@@ -11,7 +11,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
 
     #Homepage
-    path("", views.HomeView.as_view(), name="home"),
+    path("", views.home, name="home"),
 
     #Apps
     path('', include('core.urls')),

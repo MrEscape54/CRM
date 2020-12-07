@@ -1,9 +1,17 @@
+.ui.container{
+  min-width: 95% !important;
+}
+
 .ui.menu .item>img:not(.ui) {
     width: 1em;
 }
 
-.ui.menu .item{
-   color: white;
+.ui.menu .item, .active.item{
+   color: white !important;
+}
+
+.active.item{
+  border-color: red !important;
 }
 
 .right.menu .ui.button {
@@ -20,20 +28,56 @@
     align-items: center !important;
   }
   
-  .ui.secondary.menu {
-    background-color: black !important;
-  }
-  
-  .ui.secondary.pointing.menu .item {
-    align-self: baseline !important;
-  }
-  
-  .ui.menu:not(.vertical) .item > .button {
-    padding: 7px 1.14285714em !important; 
-  }
-  
-  .ui.secondary.pointing.menu p {
-    color: darkcyan !important;
-    font-family: fantasy !important;
-    font-weight: 700 !important;
-  }
+.ui.secondary.menu {
+  background-color: black !important;
+}
+
+.ui.secondary.pointing.menu .item {
+  align-self: baseline !important;
+}
+
+.ui.menu:not(.vertical) .item > .button {
+  padding: 7px 1.14285714em !important; 
+}
+
+.ui.secondary.pointing.menu p {
+  color: darkcyan !important;
+  font-family: fantasy !important;
+  font-weight: 700 !important;
+}
+
+.ui.input>input{
+  padding: .47857143em 1em;
+  margin-right: 40px;
+}
+
+.account .ui.teal.button{
+  float: right;
+}
+
+.ui.table {margin: 0;}
+.ui.table th{
+  outline: none !important;
+}
+
+.ui.modal .header{
+  color: firebrick;
+}
+
+.ui.modal>.content>.description{
+  padding-right: 60px;
+}
+
+.ui.modal .item .header{
+  margin-bottom: 6px;
+  font-size: 1.1em;
+  color: orange;
+}
+
+.ui.modal .content .description{
+  margin-bottom: 2px;
+}
+
+.ui.relaxed.list:not(.horizontal)>.item:not(:first-child) {
+    padding-top: 1em;
+}
