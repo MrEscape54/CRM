@@ -1,7 +1,5 @@
-$(".ui.accordion").accordion();
 $(".content").addClass("active");
 $(".title").addClass("active");
-$(".ui.table.transition").removeClass("hidden");
 $(".ui.table.transition").addClass("visible");
 $(".visible.transition").attr("style", "display: table !important");
 
@@ -14,4 +12,9 @@ $("#Prospect").removeClass("olive").addClass("green");
 
 $(function () {
   $("table").tablesorter();
+});
+
+$(".ui.accordion").accordion({
+  animateChildren: false,
+  exclusive: false,
 });

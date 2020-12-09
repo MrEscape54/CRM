@@ -1,6 +1,6 @@
-from accounts.models import Account
+from accounts.models import Account, ParentCompany
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import models
@@ -18,4 +18,15 @@ class AccountListView(LoginRequiredMixin, ListView):
         context["active"] = 'accounts'
 
         return context
+
+class ParentCompanyCreateView(LoginRequiredMixin, CreateView):
+    model = ParentCompany
+    template_name = "accounts/parentCompany_create_form.html"
+    login_url = "/"
+
+    fields = ['name', 'category']
+
     
+class AccountCreateView(CreateView):
+    model = Account
+    template_name = "accounts/account_create_form.html"

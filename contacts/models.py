@@ -5,12 +5,12 @@ from core import utils
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Contact(models.Model):
-    first_name = models.CharField(_("First name"), max_length=255)
-    last_name = models.CharField(_("Last name"), max_length=255)
+    first_name = models.CharField(_("First name"), max_length=255, help_text='Required')
+    last_name = models.CharField(_("Last name"), max_length=255, help_text='Required')
     location = models.CharField(_("Location"), max_length=30, choices=utils.COUNTRIES, help_text='Required')
     slug = models.SlugField()
-    email = models.EmailField(unique=True)
-    phone = PhoneNumberField(null=True)
+    email = models.EmailField(unique=True,help_text='Required')
+    phone = PhoneNumberField(blank=True, null=True)
     notes = models.TextField(_("Notes"), max_length=240,  null=True, blank=True)
     position = models.CharField(max_length=64, blank=True, null=True)
     created_by = models.ForeignKey(User, related_name="contact_created_by", on_delete=models.PROTECT)

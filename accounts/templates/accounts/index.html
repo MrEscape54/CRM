@@ -5,7 +5,7 @@
 
 <div class="ui container account">
   <h1><i class="building right icon"></i> Accounts</h1>
-  <button class="ui teal button"><i class="plus icon"></i>Add a new Account</button>
+  <a href="{% url 'accounts:parent_create' %}" class="ui teal button"><i class="plus icon"></i>Add a new Account</a>
   <br>
 
 {% regroup accounts by status as status_list %}
@@ -37,7 +37,7 @@
 
           {% for account in status.list %}
             <tr>
-              {% comment %} TODO: Agregar link para modal de edit / remove {% endcomment %}
+              {% comment %} TODO: Agregar link para modal de edit {% endcomment %}
               <td class="modal-button" data-account="{{account.slug}}" data-tooltip="Click for details" data-position="top left" data-inverted=""><a href="#">{{account.name}}</a></td>
               <td>{{ account.industry}}</td>
               <td><i class="{{account.country|lower}} flag"></i>{{ account.country}}</td>
@@ -46,7 +46,7 @@
               <td>{{ account.address}}</td>
               <td><a href="{{ account.website}}" target="_blank">Visit</a></td>
             </tr>
-
+            
             {% include 'accounts/modals.html' %}
 
             {% endfor %}
