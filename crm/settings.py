@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'social_django',
     'phonenumber_field',
-    'rest_framework',
     'tinymce',
+    'rest_framework',
     'drf_spectacular',
 ]
 

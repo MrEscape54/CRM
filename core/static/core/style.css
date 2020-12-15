@@ -61,7 +61,7 @@
 }
 
 .ui.modal .header{
-  color: firebrick;
+  color: slategray;
 }
 
 .ui.modal>.content>.description{
@@ -80,4 +80,15 @@
 
 .ui.relaxed.list:not(.horizontal)>.item:not(:first-child) {
     padding-top: 1em;
+}
+
+.fields .plus-icon{
+  height: 0px !important;
+  line-height: 6 !important;
+  padding-left: 0 !important;
+  cursor: pointer;
+}
+
+.ui.selection.dropdown{
+  min-width: 0 !important;
 }

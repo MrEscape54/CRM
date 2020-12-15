@@ -4,9 +4,13 @@
 {% block content %}
 
 <div class="ui container account">
-  <h1><i class="building right icon"></i> Accounts</h1>
-  <a href="{% url 'accounts:parent_create' %}" class="ui teal button"><i class="plus icon"></i>Add a new Account</a>
+
+<h1><i class="building right icon"></i> Accounts</h1>
+ <a href="# {% comment %} {% url 'accounts:parent_create' %}{% endcomment %}" class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Account</a>
   <br>
+
+  {% include 'accounts/parent_create_modal.html' %}
+
 
 {% regroup accounts by status as status_list %}
 
@@ -47,7 +51,7 @@
               <td><a href="{{ account.website}}" target="_blank">Visit</a></td>
             </tr>
             
-            {% include 'accounts/modals.html' %}
+            {% include 'accounts/account_detail _modal.html' %}
 
             {% endfor %}
 

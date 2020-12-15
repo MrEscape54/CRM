@@ -7,7 +7,7 @@ ACC_INDUSTRY = (
     ("Automotive", "Automotive"),
     ("Banking", "Banking"),
     ("Biotechnology", "Biotechnology"),
-    ("Building, Material & Equipment", "Building, Material & Equipment"),
+    ("Building, Material & Equipment", "Building & Equipment"),
     ("Chemical", "Chemical"),
     ("Education", "Education"),
     ("Electronics", "Electronics"),

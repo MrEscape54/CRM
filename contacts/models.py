@@ -13,6 +13,7 @@ class Contact(models.Model):
     phone = PhoneNumberField(blank=True, null=True)
     notes = models.TextField(_("Notes"), max_length=240,  null=True, blank=True)
     position = models.CharField(max_length=64, blank=True, null=True)
+    is_active = models.BooleanField(_("Is Active"), default=True)
     created_by = models.ForeignKey(User, related_name="contact_created_by", on_delete=models.PROTECT)
     created = models.DateTimeField(_("Created on"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated on"), auto_now=True)

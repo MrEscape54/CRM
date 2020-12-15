@@ -1,0 +1,126 @@
+{% load widget_tweaks %}
+
+
+{% comment %} FIRST MODAL IS SHOWN TO CREATE AN ACCOUNT{% endcomment %}
+<div class="ui modal coupled account_create">
+  <div class="header">
+    <i class="building middle aligned icon"></i> New Account
+  </div>
+  
+    <div class="content">
+
+        <form class="ui form" id="account" action="" method="post" novalidate>
+            {% csrf_token %}
+            {% for hidden_field in account_form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            <div class="fields">
+                <div class="five wide required field">
+                    <label for="{{ account_form.name.id_for_label }}">{{ account_form.name.label }}</label>
+                    {% render_field account_form.name placeholder=account_form.name.label%}
+
+                </div>
+                <div class="four wide required field">
+                    <label for="{{ account_form.country.id_for_label }}">{{ account_form.country.label }}</label>
+                    {% render_field account_form.country class="ui selection dropdown" placeholder=account_form.country.label%}
+                </div>
+                <div class="four wide required field">
+                    <label for="{{ account_form.industry.id_for_label }}">{{ account_form.industry.label }}</label>
+                    {% render_field account_form.industry class="ui selection dropdown" placeholder=account_form.industry.label%}
+                </div>
+                <div class="three wide required field">
+                    <label for="{{ account_form.status.id_for_label }}">{{ account_form.status.label }}</label>
+                    {% render_field account_form.status class="ui selection dropdown" placeholder=account_form.status.label%}
+                </div>
+            </div>
+
+            <div class="fields">
+                <div class="five wide field">
+                    <label for="{{ account_form.address.id_for_label }}">{{ account_form.address.label }}</label>
+                    {% render_field account_form.address placeholder=account_form.address.label%}
+                </div>
+
+                <div class="four wide field">
+                    <label for="{{ account_form.website.id_for_label }}">{{ account_form.website.label }}</label>
+                    {% render_field account_form.website placeholder=account_form.website.label%}
+                </div>
+
+                <div class="five wide required field">
+                    <label for="{{ account_form.parent_company.id_for_label }}">{{ account_form.parent_company.label }}</label>
+                    {% render_field account_form.parent_company class="ui selection dropdown" placeholder=account_form.parent_company.label%}
+                </div>
+                
+                <div class="one wide field plus-icon">
+                    <i class="plus green icon"></i>
+                </div>
+            </div>
+
+            <div class="field">
+                    <label for="{{ account_form.description.id_for_label }}">{{ account_form.description.label }}</label>
+                    {% render_field account_form.description placeholder=account_form.description.label rows=2%}
+            </div>
+
+            <div class="inline field">
+              <div class="ui toggle checkbox">
+                {% render_field account_form.is_active%}
+                <label for="{{ account_form.is_active.id_for_label }}">{{ account_form.is_active.label }}</label>
+              </div>
+            </div>
+
+        </form>
+  </div>
+  
+  <div class="actions">
+    <div class="ui red deny button">Cancel</div>
+    <div class="ui positive right labeled icon button">
+      Save<i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<div class="ui mini modal coupled parent_create">
+  <div class="header">
+    <i class="sitemap middle aligned icon"></i> New Parent Company
+  </div>
+  <div class="content">
+
+        <div class="ui form" id="account" action="" method="post" novalidate>
+            {% csrf_token %}
+            {% for hidden_field in parent_form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+            <div class="fields">
+              <div class="ten wide field">
+                  <label for="{{ parent_form.name.id_for_label }}">{{ parent_form.name.label }}</label>
+                  {% render_field parent_form.name placeholder=parent_form.name.label%}
+              </div>
+              <div class="six wide field">
+                  <label for="{{ parent_form.category.id_for_label }}">{{ parent_form.category.label }}</label>
+                  {% render_field parent_form.category class="ui selection dropdown" placeholder=parent_form.category.label%}
+              </div>
+            </div>
+          </div>
+  </div>
+  <div class="actions">
+    <div class="ui red deny button">Cancel</div>
+    <div class="ui positive right labeled icon button">
+      Save<i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector("#modal_create").onclick = function () {
+    $(".coupled").modal({
+      allowMultiple: true
+    });
+    // open second modal on first modal buttons
+    $(".parent_create").modal("attach events", ".account_create .plus-icon");
+    // show first immediately
+    $(".account_create").modal("show");
+  };
+
+  $(".selection.dropdown").dropdown();
+  $('.ui.checkbox').checkbox();
+</script>
