@@ -3,13 +3,58 @@
 
 {% block content %}
 
+{% if account_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in account_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in account_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% if parent_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in parent_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in parent_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="ui three column centered grid dj-message">
+      <div class="column">
+        <div class="ui {{ message.tags }} message">
+          <i class="close icon"></i>
+          <p>{{message }}</p>
+        </div>
+      </div>   
+    </div>         
+  {% endfor %}
+{% endif %}
+
 <div class="ui container account">
 
 <h1><i class="building right icon"></i> Accounts</h1>
- <a href="# {% comment %} {% url 'accounts:parent_create' %}{% endcomment %}" class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Account</a>
+ <button class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Account</button>
   <br>
 
-  {% include 'accounts/parent_create_modal.html' %}
+  {% include 'accounts/account_create_modal.html' %}
 
 
 {% regroup accounts by status as status_list %}
@@ -31,7 +76,7 @@
               <th>Industry <i class="sort icon"></th>
               <th>Country  <i class="sort icon"></th>
               <th>Main Contact  <i class="sort icon"></th>
-              <th>Responsible  <i class="sort icon"></th>
+              <th>Assigned to  <i class="sort icon"></th>
               <th>Address  <i class="sort icon"></th>
               <th>Web  <i class="sort icon"></th>
             </tr>
@@ -41,10 +86,9 @@
 
           {% for account in status.list %}
             <tr>
-              {% comment %} TODO: Agregar link para modal de edit {% endcomment %}
               <td class="modal-button" data-account="{{account.slug}}" data-tooltip="Click for details" data-position="top left" data-inverted=""><a href="#">{{account.name}}</a></td>
               <td>{{ account.industry}}</td>
-              <td><i class="{{account.country|lower}} flag"></i>{{ account.country}}</td>
+              <td><i class="{{account.country|lower}} flag"></i> {{account.get_country_display}}</td>
               <td>{{ account.contacts.first}}</td>
               <td>{{ account.assigned_to.get_full_name}}</td>
               <td>{{ account.address}}</td>

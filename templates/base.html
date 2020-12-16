@@ -29,7 +29,6 @@
         <a class="{% if active == 'contacts' %}active {% endif %}item" href="{% url 'contacts:index' %}">Contacts</a>
         <a class="{% if active == 'tasks' %}active {% endif %}item" href="{% url 'tasks:index' %}">Tasks</a>
 
-        
         <div class="right menu">
             <div class="ui inverted left icon input">
                 <input type="text" placeholder="Search...">
@@ -39,6 +38,19 @@
             <a class="item" href="{% url 'logout' %}"><button class="ui secondary button tiny"><i class="sign-out icon"></i></a>
         </div>
     </div>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="ui three column centered grid dj-message">
+            <div class="column">
+                <div class="ui {{ message.tags }} message">
+                    <i class="close icon"></i>
+                    <p>{{message }}</p>
+                </div>
+            </div>   
+        </div>         
+        {% endfor %}
+    {% endif %}
 
     {% block content %}
     {% endblock content %}
