@@ -21,7 +21,7 @@
             <i class="large industry middle aligned grey icon"></i>
             <div class="content">
             <div class="header">Company Information:</div>
-            <div class="description"><b>Country:</b>{{account.country}} - <i class="{{account.country|lower}} flag"></i></div>
+            <div class="description"><b>Country:</b>{{account.get_country_display}} - <i class="{{account.country|lower}} flag"></i></div>
             <div class="description"><b>Address:</b> {{account.address}}</div>
             <div class="description"><b>Industry:</b> {{account.industry}}</div>
             <div class="description"><b>Web:</b> <a href="{{account.website}}" target="_blank">{{account.website}}</a></div>
@@ -45,11 +45,17 @@
             <div class="item">
             <i class="large address card middle aligned  grey icon"></i>
                 <div class="content">
-                <div class="header">{{ contact}}</div>
-                <div class="description"><b>Location:</b> {{contact.location}} - <i class="{{contact.location|lower}} flag"></i></div>
-                <div class="description"><b>Email:</b> <a href="mailto:{{contact.email}}">{{ contact.email|lower}}</a></div>
-                <div class="description"><b>Phone:</b> {{ contact.phone}}</div>
-                <div class="description"</b> {{ contact.position}}</div>
+                    <div class="header">{{ contact}}</div>
+                    <div class="description"><b>Location:</b> {{contact.location}} - <i class="{{contact.location|lower}} flag"></i></div>
+                    <div class="description"><b>Email:</b> <a href="mailto:{{contact.email}}">{{ contact.email|lower}}</a></div>
+                    <div class="description"><b>Phone:</b> {{ contact.phone}}</div>
+                    <div class="description"><b>Position:</b> {{ contact.position}}</div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="item">
+                <div class="content">
+                    <div class="description">No contacts provided</div>
                 </div>
             </div>
         {% endfor %}
@@ -63,10 +69,9 @@
     <div class="ui black deny button">
         Leave
     </div>
-    <div class="ui positive right labeled icon button">
-        Edit Account
-        <i class="edit icon"></i>
-    </div>
+    <a href="{{account.get_absolute_url}}" class="ui positive right icon button">
+        Go to Account Page
+    </a>
     </div>
 </div>
 

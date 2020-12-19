@@ -1,13 +1,12 @@
 from django import forms
-from django.forms.models import ModelChoiceField
 from .models import Account, ParentCompany
 
-class ParentCreateForm(forms.ModelForm):
+class ParentForm(forms.ModelForm):
     class Meta:
         model = ParentCompany
-        fields = ('name', 'category')
+        fields = ('name', 'category', 'is_active')
 
-class AccountCreateForm(forms.ModelForm):
+class AccountForm(forms.ModelForm):
 
     class Meta:
         model = Account
@@ -16,5 +15,3 @@ class AccountCreateForm(forms.ModelForm):
         widgets = {
             'created_by' : forms.HiddenInput(),
         }
-
-

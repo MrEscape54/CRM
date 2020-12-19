@@ -4,7 +4,7 @@
 {% comment %} FIRST MODAL IS SHOWN TO CREATE AN ACCOUNT{% endcomment %}
 <div class="ui modal coupled account_create">
   <div class="header">
-    <i class="building middle aligned icon"></i> New Account
+    <i class="building middle aligned icon"></i> {{modal_title}}
   </div>
   
     <div class="content">
@@ -58,7 +58,7 @@
             </div>
 
             <div class="fields">
-              <div class="five wide required field {% if field.errors %} error{% endif %}">
+              <div class="five wide required {% if not request.user.is_staff %} disabled {% endif %}field{% if field.errors %} error{% endif %}">
                     <label for="{{ account_form.assigned_to.id_for_label }}">{{ account_form.assigned_to.label }}</label>
                     {% render_field account_form.assigned_to class="ui fluid search selection dropdown"%}
               </div>
@@ -73,7 +73,6 @@
                     <label for="{{ account_form.description.id_for_label }}">{{ account_form.description.label }}</label>
                     {% render_field account_form.description placeholder=account_form.description.label rows=2 %}
             </div>
-          
 
             <div class="inline field">
               <div class="ui toggle checkbox">
@@ -85,7 +84,8 @@
           <div class="ui error message"></div>
         </form>
   </div>
-  
+
+{% comment %} SECOND MODAL IS SHOWN TO CREATE A PARENT ACCOUNT{% endcomment %}  
   <div class="actions">
     <div class="ui red deny button">Cancel</div>
     <div class="ui approve positive right labeled icon button">
@@ -114,6 +114,12 @@
               <div class="six wide required field">
                   <label for="{{ parent_form.category.id_for_label }}">{{ parent_form.category.label }}</label>
                   {% render_field parent_form.category class="ui selection dropdown"%}
+              </div>
+            </div>
+            <div class="inline field">
+              <div class="ui toggle checkbox">
+                {% render_field parent_form.is_active%}
+                <label for="{{ parent_form.is_active.id_for_label }}">{{ parent_form.is_active.label }}</label>
               </div>
             </div>
           <button id="parent_submit"  style="display:none" type="submit"></button>

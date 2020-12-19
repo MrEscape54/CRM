@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block content %}
+
+{% if account_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in account_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in account_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% if parent_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in parent_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in parent_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% include 'accounts/account_crud_modal.html' %}
+
+<div class="ui container account-detail">
+  <div class="ui secondary menu">
+    <div class="item">
+      <h1><i class="building right icon"></i> {{account.name}}</h1>
+    </div>
+    <div class="item">
+      <a href="#" class="ui grey basic mini button" id="modal_create">Edit</a>
+    </div>
+  </div>
+
+  <table class="ui very compact table">
+    <thead>
+      <tr>
+        <th>Account Information:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Assigned to:</b></td>
+        <td>{{account.assigned_to.get_full_name}}</td>
+      </tr>
+      <tr>
+        <td><b>Parent Account:</b></td>
+        <td>{{account.parent_company}} <a href="#"><i class="pencil alternate grey icon"></i></a></td>
+      </tr>
+      <tr>
+        <td><b>Country:</b></td>
+        <td><i class="{{account.country|lower}} flag"></i> {{account.get_country_display}}</td>
+      </tr>
+      <tr>
+        <td><b>Address:</b></td>
+        <td>{{account.address}}</td>
+      </tr>
+      <tr>
+        <td><b>Industry:</b></td>
+        <td>{{account.industry}}</td>
+      </tr>
+      <tr>
+        <td><b>Web:</b></td>
+        <td><a href="{{account.website}}" target="_blank">Visit<a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

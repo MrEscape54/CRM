@@ -2,12 +2,20 @@
   min-width: 95% !important;
 }
 
+textarea{
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif !important;
+}
+
 .ui.menu .item>img:not(.ui) {
     width: 1em;
 }
 
 .ui.menu .item, .active.item{
    color: white !important;
+}
+
+.account-detail .ui.menu .item, .account-detail .active.item{
+   color: black !important;
 }
 
 .active.item{
@@ -30,6 +38,10 @@
   
 .ui.secondary.menu {
   background-color: black !important;
+}
+
+.account-detail .ui.secondary.menu {
+  background-color: white !important;
 }
 
 .ui.secondary.pointing.menu .item {
@@ -105,4 +117,19 @@
 .errorlist{
   margin: 0;
     padding: 0 10px;
+}
+
+.account-detail .table{
+  width: auto;
+  border: none;
+  line-height: 1em;
+}
+.account-detail .ui.table tr td{
+  border: none;
+}
+
+.account-detail .ui.table th{
+  background-color: white;
+  border: none;
+  font-size: 1.1em;
 }

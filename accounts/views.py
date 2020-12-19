@@ -1,12 +1,11 @@
-from accounts.models import Account, ParentCompany
-from django.shortcuts import render
-from django.views.generic import ListView, CreateView
+from accounts.models import Account
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.text import slugify
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
 
-from accounts.forms import ParentCreateForm, AccountCreateForm
+from accounts.forms import ParentForm, AccountForm
 
 @login_required
 def account_list(request):
@@ -14,82 +13,73 @@ def account_list(request):
 
     if request.method == 'POST':
         # Instantiate both Account and Parent forms
-        account_form = AccountCreateForm(request.POST)
-        parent_form = ParentCreateForm(request.POST)
+        account_form = AccountForm(request.POST)
+        parent_form = ParentForm(request.POST)
 
         # if submit is triggered by Account form
         if request.POST.get("form_type") == 'form_account':
-            parent_form = ParentCreateForm()
-            print(account_form)
+            parent_form = ParentForm()
             if account_form.is_valid():
                 new_account = account_form.save(commit=False)
-                new_account.created_by = request.user
+                new_account.slug = slugify(new_account.name)
                 new_account.save()
                 messages.success(request, ('Account successfully created'))
                 return redirect('accounts:index')
 
         # if submit is triggered by Parent form
         elif request.POST.get("form_type") == 'form_parent':
-            account_form = AccountCreateForm()    
+            account_form = AccountForm(initial={'assigned_to': request.user})    
             if parent_form.is_valid():
                 new_parent = parent_form.save(commit=False)
                 new_parent.created_by = request.user
+                new_parent.slug = slugify(new_parent.name)
                 new_parent.save()
                 messages.success(request, ('Parent Account successfully created'))
                 return redirect('accounts:index')
     else: 
-        account_form = AccountCreateForm()
-        parent_form = ParentCreateForm()
+        account_form = AccountForm(initial={'assigned_to': request.user})
+        parent_form = ParentForm()
 
     context = {'accounts': accounts, 
                'active': "accounts", 
                'account_form': account_form, 
                'parent_form': parent_form,
+               'modal_title': "New Account"
                }
 
     return render(request, "accounts/index.html", context)
 
-# class AccountListView(LoginRequiredMixin, ListView):
-#     queryset = Account.active.all()
-#     template_name = "accounts/index.html"
-#     login_url = "/"
+@login_required
+def account_detail(request, account):
+    account = get_object_or_404(Account, slug=account)
 
-#     context_object_name = 'accounts'
+    if request.method == 'POST':
+        # Instantiate both Account and Parent forms
+        account_form = AccountForm(request.POST or None, instance = account) 
+        parent_form = ParentForm(request.POST or None, instance = account.parent_company)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["active"] = 'accounts'
-#         context["parent_form"] = ParentCreateForm()
-#         context['account_form'] = AccountCreateForm()
+        # if submit is triggered by Account form
+        if request.POST.get("form_type") == 'form_account':
+            if account_form.is_valid():
+                account_form.save()
+                messages.success(request, ('Account successfully updated'))
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-#         return context
+        # if submit is triggered by Parent form
+        elif request.POST.get("form_type") == 'form_parent': 
+            if parent_form.is_valid():
+                parent_form.save()
+                messages.success(request, ('Parent Account successfully updated'))
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else: 
+        account_form = AccountForm(request.POST or None, instance = account)
+        parent_form = ParentForm(request.POST or None, instance = account.parent_company)
 
-# class ParentCompanyCreateView(LoginRequiredMixin, CreateView):
-#     model = ParentCompany
-#     template_name = "accounts/parentCompany-create.html"
-#     login_url = "/"
-#     success_url = 'accounts:index'
+    context = {'account': account, 
+               'active': "accounts", 
+               'account_form': account_form, 
+               'parent_form': parent_form,
+               'modal_title': "Update Account"
+               }
 
-#     form_class = ParentCreateForm
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.created_by = self.request.user
-#         self.object.save()
-#         return redirect(self.get_success_url())
-
-
-    
-# class AccountCreateView(LoginRequiredMixin, CreateView):
-    model = Account
-    template_name = "accounts/account_create.html"
-    login_url = "/"
-    success_url = 'accounts:index'
-
-    fields = ['created_by', 'name']
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.created_by = self.request.user
-        self.object.save()
-        return redirect(self.get_success_url())
+    return render(request, "accounts/account_detail.html", context)

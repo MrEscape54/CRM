@@ -35,26 +35,13 @@
   </div>  
 {% endif %}
 
-{% if messages %}
-  {% for message in messages %}
-    <div class="ui three column centered grid dj-message">
-      <div class="column">
-        <div class="ui {{ message.tags }} message">
-          <i class="close icon"></i>
-          <p>{{message }}</p>
-        </div>
-      </div>   
-    </div>         
-  {% endfor %}
-{% endif %}
-
 <div class="ui container account">
 
 <h1><i class="building right icon"></i> Accounts</h1>
  <button class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Account</button>
   <br>
 
-  {% include 'accounts/account_create_modal.html' %}
+  {% include 'accounts/account_crud_modal.html' %}
 
 
 {% regroup accounts by status as status_list %}
@@ -72,6 +59,7 @@
         <table class="ui olive selectable table transition hidden tablesorter" id="{{status.grouper}}">
           <thead>
             <tr>
+              <th></th>
               <th>Name  <i class="sort icon"></i></th>
               <th>Industry <i class="sort icon"></th>
               <th>Country  <i class="sort icon"></th>
@@ -86,7 +74,8 @@
 
           {% for account in status.list %}
             <tr>
-              <td class="modal-button" data-account="{{account.slug}}" data-tooltip="Click for details" data-position="top left" data-inverted=""><a href="#">{{account.name}}</a></td>
+              <td class="modal-button" data-account="{{account.slug}}" data-tooltip="Click for extra information" data-position="top left" data-inverted=""><i class="search plus grey icon"></i></td>
+              <td><a href="{{account.get_absolute_url}}">{{account.name}}</a></td>
               <td>{{ account.industry}}</td>
               <td><i class="{{account.country|lower}} flag"></i> {{account.get_country_display}}</td>
               <td>{{ account.contacts.first}}</td>
