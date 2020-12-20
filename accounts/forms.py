@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, ParentCompany
+from .models import Account, ParentCompany, User
 
 class ParentForm(forms.ModelForm):
     class Meta:
@@ -7,6 +7,11 @@ class ParentForm(forms.ModelForm):
         fields = ('name', 'category', 'is_active')
 
 class AccountForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AccountForm, self).__init__(*args, **kwargs)
+        users = User.objects.all()
+        self.fields['assigned_to'].choices = [(user.pk, user.get_full_name()) for user in users]
 
     class Meta:
         model = Account

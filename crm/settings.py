@@ -59,6 +59,7 @@ ROOT_URLCONF = 'crm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -158,7 +159,9 @@ MEDIA_ROOT = (BASE_DIR / 'media/')
 STATIC_ROOT = (BASE_DIR / 'staticfiles')
 
 #Whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # drf-spectacular
 REST_FRAMEWORK = {
