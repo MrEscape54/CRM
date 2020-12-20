@@ -16,6 +16,9 @@ django-phonenumber-field = {extras = ["phonenumberslite"], version = "*"}
 djangorestframework = "*"
 django-tinymce = "*"
 drf-spectacular = "*"
+gunicorn = "*"
+dj-database-url = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.9"
