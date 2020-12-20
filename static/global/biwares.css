@@ -105,7 +105,7 @@ a#anchor-link {
 .navbar-brand { position: relative; z-index: 2; }
 
 .logo {
-    background-image: url(../images/b-logo.png);
+    background-image: url(../global/img/b-logo.png);
     display: block;
     background-repeat: no-repeat;
     height: 50px;
@@ -341,7 +341,6 @@ li::before {
 	    z-index: -100;
 	    -webkit-transform: translateX(-50%) translateY(-50%);
 	    transform: translateX(-50%) translateY(-50%);
-	    /*background: url(polina.jpg) no-repeat;*/
 	    background-size: cover; 
 	    opacity: 1;
 	        
