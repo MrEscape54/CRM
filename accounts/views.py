@@ -45,7 +45,8 @@ def account_list(request):
                'active': "accounts", 
                'account_form': account_form, 
                'parent_form': parent_form,
-               'modal_title': "New Account"
+               'modal_account_title': "New Account",
+               'modal_parent_title': "New Parent Account",
                }
 
     return render(request, "accounts/index.html", context)
@@ -80,7 +81,8 @@ def account_detail(request, account):
                'active': "accounts", 
                'account_form': account_form, 
                'parent_form': parent_form,
-               'modal_title': "Update Account"
+               'modal_account_title': "Update Account",
+               'modal_parent_title': "Update Parent Account",
                }
 
     return render(request, "accounts/account_detail.html", context)

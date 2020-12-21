@@ -4,7 +4,7 @@
 {% comment %} FIRST MODAL IS SHOWN TO CREATE AN ACCOUNT{% endcomment %}
 <div class="ui modal coupled account_create">
   <div class="header">
-    <i class="building middle aligned icon"></i> {{modal_title}}
+    <i class="building middle aligned icon"></i> {{modal_account_title}}
   </div>
   
     <div class="content">
@@ -51,10 +51,15 @@
                     <label for="{{ account_form.parent_company.id_for_label }}">{{ account_form.parent_company.label }}</label>
                     {% render_field account_form.parent_company class="ui fluid search selection dropdown"%}
                 </div>
-                
-                <div class="one wide field plus-icon">
-                    <i class="plus green icon"></i>
+                {% if modal_account_title == "New Account" %}
+                  <div class="one wide field plus-icon">
+                      <i class="plus green icon"></i>
+                  </div>
+                {% else %}
+                  <div class="one wide field plus-icon">
+                    <i class="pencil alternate green icon"></i>
                 </div>
+                {% endif %}
             </div>
 
             <div class="fields">
@@ -63,7 +68,7 @@
                     {% render_field account_form.assigned_to class="ui fluid search selection dropdown"%}
               </div>
 
-              <div class="eleven wide required field">
+              <div class="eleven wide field">
                     <label for="{{ account_form.contacts.id_for_label }}">{{ account_form.contacts.label }}</label>
                     {% render_field account_form.contacts class="ui fluid multiple search selection dropdown"%}
               </div>
@@ -96,7 +101,7 @@
 
 <div class="ui mini modal coupled parent_create">
   <div class="header">
-    <i class="sitemap middle aligned icon"></i> New Parent Company
+    <i class="sitemap middle aligned icon"></i> {{modal_parent_title}}
   </div>
   <div class="content">
 

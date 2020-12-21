@@ -34,8 +34,8 @@
                 <input type="text" placeholder="Search...">
                 <i class="search icon"></i>
             </div>
-            <a class="item" href="#{% comment %} {% url 'profile' %} {% endcomment %}"><strong>{{ user.username }}</strong></a>
-            <a class="item" href="{% url 'logout' %}"><button class="ui secondary button tiny"><i class="sign-out icon"></i></a>
+            <strong class="item"><i class="user circle outline icon"></i> {{ user.first_name }}</strong>
+            <a class="item ui secondary button tiny" href="{% url 'logout' %}"><i class="sign-out icon"></i></a>
         </div>
     </div>
 
