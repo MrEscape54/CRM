@@ -22,13 +22,14 @@ def account_list(request):
             if account_form.is_valid():
                 new_account = account_form.save(commit=False)
                 new_account.slug = slugify(new_account.name)
+                new_account.created_by = request.user
                 new_account.save()
                 messages.success(request, ('Account successfully created'))
                 return redirect('accounts:index')
 
         # if submit is triggered by Parent form
         elif request.POST.get("form_type") == 'form_parent':
-            account_form = AccountForm(initial={'assigned_to': request.user})    
+            account_form = AccountForm()    
             if parent_form.is_valid():
                 new_parent = parent_form.save(commit=False)
                 new_parent.created_by = request.user
