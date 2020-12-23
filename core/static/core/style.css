@@ -122,6 +122,8 @@ textarea{
   width: auto;
   border: none;
   line-height: 1em;
+  margin-bottom: 30px !important;
+
 }
 .account-detail .ui.table tr td{
   border: none;
@@ -131,4 +133,24 @@ textarea{
   background-color: white;
   border: none;
   font-size: 1.1em;
+}
+
+.ui.fluid.container.contacts{
+    background-color: #f1f1f1;
+    padding: 20px 0;
+}
+
+.disabled-phone{
+  opacity: 100 !important;
+}
+
+.input-phone{
+  border-color: white !important;
+  padding: 0 !important;
+  border: none;
+}
+.ui.selectable.table tbody tr:hover input{
+  border-color: #F2F2F2  !important;
+
+  background-color: #F2F2F2 !important;
 }

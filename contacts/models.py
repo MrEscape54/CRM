@@ -1,8 +1,13 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from core.models import User
 from core import utils
 from phonenumber_field.modelfields import PhoneNumberField
+
+class ActiveContactManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
 
 class Contact(models.Model):
     first_name = models.CharField(_("First name"), max_length=255, help_text='Required')
@@ -21,5 +26,11 @@ class Contact(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+    def get_absolute_url(self):
+        return reverse("contacts:index", args=[self.slug])
+
     class Meta:
-        ordering = ["created"]
+        ordering = ["first_name"]
+    
+    objects = models.Manager() # The default manager.
+    active = ActiveContactManager() # Our custom manager.

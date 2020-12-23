@@ -1,5 +1,89 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-Contacts Page
+
+{% if contact_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in contact_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in contact_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+<div class="ui container account">
+
+<h1><i class="address card outline icon"></i> Contacts</h1>
+ <button class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Contact</button>
+  <br>
+
+  {% comment %} {% include 'accounts/account_crud_modal.html' %} {% endcomment %}
+
+{% regroup contacts by status as status_list %}
+
+  <div class="ui accordion">
+    
+    {% for status in status_list %}
+    
+      <div class="title">
+        <i class="dropdown icon"></i>
+        <h3 style="display:inline; color:teal">{{status.grouper}}s</h3>
+      </div>
+      <div class="content">
+
+        <table class="ui teal selectable table transition hidden tablesorter" id="{{status.grouper}}">
+          <thead>
+            <tr>
+              <th>Name  <i class="sort icon"></i></th>
+              <th>Account  <i class="sort icon"></i></th>
+              <th>Position <i class="sort icon"></th>
+              <th>Location  <i class="sort icon"></th>
+              <th>Email  <i class="sort icon"></th>
+              <th>Phone  <i class="sort icon"></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+          {% for contact in status.list %}
+            <tr>
+              <td>{{contact}}</a></td>
+              <td>{{contact.account_contacts.first}}</a></td>
+              <td>{{ contact.position}}</td>
+              <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
+              <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
+              <td class="ui disabled disabled-phone"> <input type="text" class="input-phone" value="{{ contact.phone}}"></td>
+              <td class="modal-button" data-contact="{{contact.slug}}"><i class="edit green icon"></i></td>
+            </tr>
+            
+            {% include 'accounts/account_detail _modal.html' %}
+
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+      <br>
+
+    {% endfor %}
+
+  </div>
+
 {% endblock content %}
+
+{% block javascript %}
+
+  <script src="{% static 'global/cleave.js' %}"></script>
+  <script src="{% static 'global/cleave-phone.i18n.js' %}"></script>
+
+  <script src="{% static 'global/global.js' %}"></script>
+{% endblock javascript %}

@@ -1,7 +1,6 @@
 from accounts.models import Account
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
-from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -52,8 +51,8 @@ def account_list(request):
     return render(request, "accounts/index.html", context)
 
 @login_required
-def account_detail(request, account):
-    account = get_object_or_404(Account, slug=account)
+def account_detail(request, account_slug):
+    account = get_object_or_404(Account, slug=account_slug)
 
     if request.method == 'POST':
         # Instantiate both Account and Parent forms
@@ -65,14 +64,14 @@ def account_detail(request, account):
             if account_form.is_valid():
                 account_form.save()
                 messages.success(request, ('Account successfully updated'))
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                return redirect('accounts:index')
 
         # if submit is triggered by Parent form
         elif request.POST.get("form_type") == 'form_parent': 
             if parent_form.is_valid():
                 parent_form.save()
                 messages.success(request, ('Parent Account successfully updated'))
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                return redirect('accounts:index')
     else: 
         account_form = AccountForm(request.POST or None, instance = account)
         parent_form = ParentForm(request.POST or None, instance = account.parent_company)

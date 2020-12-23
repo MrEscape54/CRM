@@ -159,8 +159,7 @@ MEDIA_ROOT = (BASE_DIR / 'media/')
 STATIC_ROOT = (BASE_DIR / 'staticfiles')
 
 #Whitenoise
-if DEBUG:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # drf-spectacular

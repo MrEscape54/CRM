@@ -5,5 +5,7 @@ from . import views
 app_name = 'contacts'
 
 urlpatterns = [
-    path("", views.IndexView.as_view(), name="index"),
+    path("", views.contact_list, name="index"),
+    path("<slug:contact_slug>", views.contact_list, name="index"),
+
 ]

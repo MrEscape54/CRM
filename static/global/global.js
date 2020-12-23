@@ -16,9 +16,20 @@ $(function () {
 
 $(".ui.accordion").accordion({
   animateChildren: false,
-  exclusive: false,
+  exclusive: false, 
 });
 
 $(".message .close").on("click", function () {
   $(this).closest(".message").transition("fade");
+});
+
+//Phone number format CLEAVE
+var phoneCollection = document.getElementsByClassName("input-phone");
+var phones = Array.from(phoneCollection);
+
+phones.forEach(function (phone) {
+  new Cleave(phone, {
+    phone: true,
+    phoneRegionCode: "{country}",
+  });
 });

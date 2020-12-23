@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
 
 {% if account_form.errors %} 
   <div class="ui three column centered grid dj-message">
@@ -79,4 +82,41 @@
   </table>
 </div>
 
+
+<div class="ui fluid container contacts">
+<div class="ui container">
+  <h4 class="ui teal">CONTACTS</h4>
+  <table class="ui single line teal table tablesorter">
+    <thead>
+      <tr>
+        <th>Name <i class="sort icon"></i></th>
+        <th>Position <i class="sort icon"></i></th>
+        <th>Phone <i class="sort icon"></i></th>
+        <th>E-mail address <i class="sort icon"></i></th>
+        <th>Location <i class="sort icon"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for contact in account.contacts.all %}
+        <tr>
+          <td>{{contact}}</td>
+          <td>{{contact.position}}</td>
+          <td>{{contact.phone}}</td>
+          <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
+          <td><i class="{{contact.location|lower}} flag"></i> {{contact.location}}</td>
+        </tr>
+        {%empty%}
+        <td>No contacts provided</td>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
 {% endblock content %}
+
+{% block javascript %}
+
+  <script src="{% static 'global/global.js' %}"></script>  
+
+{% endblock javascript %}
