@@ -1,0 +1,119 @@
+{% load widget_tweaks %}
+
+
+{% comment %} FIRST MODAL IS SHOWN TO CREATE A CONTACT{% endcomment %}
+<div class="ui modal contact_create">
+  <div class="header">
+    <i class="address card outline middle aligned icon"></i> {{modal_contact_title}}
+  </div>
+  
+  <div class="content">
+
+      <form class="ui form {% if field.errors %} error{% endif %}" id="contact" action="" method="post" novalidate>
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="form_contact">
+          {% for hidden_field in contact_form.hidden_fields %}
+              {{ hidden_field }}
+          {% endfor %}
+          <div class="fields">
+              <div class="three wide required field {% if field.errors %} error{% endif %}">
+                  <label for="{{ contact_form.first_name.id_for_label }}">{{ contact_form.first_name.label }}</label>
+                  {% render_field contact_form.first_name placeholder=contact_form.first_name.label%}
+              </div>
+              <div class="three wide required field {% if field.errors %} error{% endif %}">
+                  <label for="{{ contact_form.last_name.id_for_label }}">{{ contact_form.last_name.label }}</label>
+                  {% render_field contact_form.last_name placeholder=contact_form.last_name.label%}
+              </div>
+              <div class="four wide required field {% if field.errors %} error{% endif %}">
+                  <label for="{{ contact_form.location.id_for_label }}">{{ contact_form.location.label }}</label>
+                  {% render_field contact_form.location class="ui fluid search selection dropdown"%}
+              </div>
+              <div class="five wide required field {% if field.errors %} error{% endif %}">
+                  <label for="{{ contact_form.email.id_for_label }}">{{ contact_form.email.label }}</label>
+                  {% render_field contact_form.email placeholder=contact_form.email.label%}
+              </div>
+          </div>
+
+          <div class="fields">
+              <div class="four wide field">
+                  <label for="{{ contact_form.phone.id_for_label }}">{{ contact_form.phone.label }}</label>
+                  {% render_field contact_form.phone placeholder=contact_form.phone.label%}
+              </div>
+              <div class="three wide required field {% if field.errors %} error{% endif %}">
+                  <label for="{{ contact_form.source.id_for_label }}">{{ contact_form.source.label }}</label>
+                  {% render_field contact_form.source class="ui selection dropdown"%}
+              </div>
+              <div class="four wide required field">
+                  <label for="{{ contact_form.vendor.id_for_label }}">{{ contact_form.vendor.label }}</label>
+                  {% render_field contact_form.vendor placeholder=contact_form.vendor.label%}
+              </div>
+          </div>
+          <div class="inline field">
+            <div class="ui toggle checkbox">
+              {% render_field contact_form.is_active%}
+              <label for="{{ contact_form.is_active.id_for_label }}">{{ contact_form.is_active.label }}</label>
+            </div>
+          </div>
+        <button id="contact_submit"  style="display:none" type="submit"></button>
+        <div class="ui error message"></div>
+      </form>
+  </div>
+
+{% comment %} SECOND MODAL IS SHOWN TO CREATE A PARENT ACCOUNT{% endcomment %}  
+  <div class="actions">
+    <div class="ui red deny button">Cancel</div>
+    <div class="ui approve positive right labeled icon button">
+      Save<i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  document.querySelector("#modal_create").onclick = function () {
+    $('#id_vendor').hide();
+
+    $('#id_source').on('change', function() {
+      if (this.value === "Vendor Contact") {
+        $('#id_vendor').show();
+        $('#contact').form('add rule', 'vendor', {
+            rules: [{
+              type: 'empty',
+            }
+            ]
+        });
+        }
+      else {
+        $('#id_vendor').val("");
+        $('#id_vendor').hide();
+        $('#contact').form('remove fields', 'vendor');
+        }
+    });
+
+  $(".contact_create").modal({
+      onDeny    : function(){
+        $('.contact_create').hide();
+      },
+      onApprove : function() {
+        $('#contact_submit').click();
+        return false
+      }
+    })
+    .modal('show');
+  };
+
+  $('#contact')
+  .form({
+    fields: {
+      first_name     : 'empty',
+      last_name     : 'empty',
+      location     : 'empty',
+      email     : 'empty',
+      }
+    });
+});
+
+  $(".selection.dropdown").dropdown();
+  $('.ui.checkbox').checkbox();
+
+</script>

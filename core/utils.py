@@ -32,6 +32,11 @@ ACC_INDUSTRY = (
     ("Other", _("Other")),
 )
 
+CONTACT_SOURCE = (
+    ("Account Contact", _("Account Contact")),
+    ("Vendor Contact", _("Vendor Contact")),
+)
+
 OPP_SOURCE = (
     ("call", _("Call")),
     ("email", _("Email")),

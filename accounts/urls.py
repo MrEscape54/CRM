@@ -6,5 +6,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path("", views.account_list, name="index"),
-    path("<slug:account>", views.account_detail, name="detail"),
+    path("<slug:account_slug>", views.account_detail, name="detail"),
 ]

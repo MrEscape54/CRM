@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import CharField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from core.models import User
@@ -16,7 +17,8 @@ class Contact(models.Model):
     slug = models.SlugField()
     email = models.EmailField(unique=True,help_text='Required')
     phone = PhoneNumberField(blank=True, null=True)
-    notes = models.TextField(_("Notes"), max_length=240,  null=True, blank=True)
+    source = models.CharField(_("Source"), max_length=20, choices=utils.CONTACT_SOURCE, default="Account Contact")
+    vendor = models.CharField(_("Vendor"), max_length=50, null=True, blank=True)
     position = models.CharField(max_length=64, blank=True, null=True)
     is_active = models.BooleanField(_("Is Active"), default=True)
     created_by = models.ForeignKey(User, related_name="contact_created_by", on_delete=models.PROTECT)
@@ -30,7 +32,7 @@ class Contact(models.Model):
         return reverse("contacts:index", args=[self.slug])
 
     class Meta:
-        ordering = ["first_name"]
+        ordering = ["source"]
     
     objects = models.Manager() # The default manager.
     active = ActiveContactManager() # Our custom manager.
