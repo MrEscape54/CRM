@@ -6,6 +6,6 @@ app_name = 'contacts'
 
 urlpatterns = [
     path("", views.contact_list, name="index"),
-    path("<slug:contact_slug>", views.contact_list, name="index"),
+    path("<slug:contact_slug>", views.contact_detail, name="index"),
 
 ]

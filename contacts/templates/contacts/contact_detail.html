@@ -1,0 +1,118 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+
+{% if contact_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in contact_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in contact_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% include 'contacts/contact_crud_modal.html' %}
+
+<div class="ui container account-detail">
+  <div class="ui secondary menu">
+    <div class="item">
+      <h1><i class="address card outline right icon"></i> {{contact}}</h1>
+    </div>
+    <div class="item">
+      <button class="ui grey basic mini button" id="modal_create">Edit</button>
+    </div>
+  </div>
+
+  <table class="ui very compact table">
+    <thead>
+      <tr>
+        <th>Contact Information:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Type of Contact:</b></td>
+        <td>{{contact.source}}</td>
+      </tr>
+      <tr>
+        <tr>
+        <td><b>{% if contact.source == "Account Contact" %}Account: {% else %}Vendor:{% endif %}</b></td>
+        <td>{% if contact.account_contacts.first %}
+                  <a href="{{contact.account_contacts.first.get_absolute_url}}">{{contact.account_contacts.first}}</a>
+                {% else %}
+                  {{contact.vendor}}
+                {% endif %}
+        </td>
+      </tr>
+        <td><b>Position:</b></td>
+        <td>{{contact.position}}</td>
+      </tr>
+      <tr>
+        <td><b>Location:</b></td>
+        <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
+      </tr>
+      <tr>
+        <td><b>Phone:</b></td>
+        <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
+            <input type="text" class="input-phone" value="{{ contact.phone}}">
+          </td>
+      </tr>
+      <tr>
+        <td><b>Email:</b></td>
+        <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="ui fluid container contacts">
+<div class="ui container">
+  <h4 class="ui teal">OTHER ACCOUNT CONTACTS</h4>
+  <table class="ui single line teal table tablesorter">
+    <thead>
+      <tr>
+        <th>Name <i class="sort icon"></i></th>
+        <th>Account <i class="sort icon"></i></th>
+        <th>Position <i class="sort icon"></i></th>
+        <th>Phone <i class="sort icon"></i></th>
+        <th>E-mail address <i class="sort icon"></i></th>
+        <th>Location <i class="sort icon"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact in related_contacts %}
+        <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
+            <td><a href="{{contact.account_contacts.first.get_absolute_url}}">{{contact.account_contacts.first}}</a></td>
+            <td>{{contact.position}}</td>
+            <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
+            <input type="text" class="input-phone" value="{{ contact.phone}}">
+          </td>
+            <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
+            <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
+          </tr>
+          {%empty%}
+          <td>No other account contacts</td>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+  <script src="{% static 'global/cleave.js' %}"></script>
+  <script src="{% static 'global/cleave-phone.i18n.js' %}"></script>
+  <script src="{% static 'global/global.js' %}"></script>  
+
+{% endblock javascript %}

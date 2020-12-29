@@ -59,7 +59,7 @@
               <td class="modal-button" data-contact="{{contact.slug}}" data-tooltip="Click for last notes" data-position="top left" data-inverted="">
                 <i class="search plus grey icon"></i>
               </td>
-              <td>{{contact}}</a></td>
+              <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
               <td>
                 {% if contact.account_contacts.first %}
                   <a href="{{contact.account_contacts.first.get_absolute_url}}">{{contact.account_contacts.first}}</a>
@@ -70,7 +70,7 @@
               <td>{{ contact.position}}</td>
               <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
               <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
-              <td class="ui disabled disabled-phone"> <i class="{{contact.location|lower}} flag"></i>
+              <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
                 <input type="text" class="input-phone" value="{{ contact.phone}}">
               </td>
             </tr>

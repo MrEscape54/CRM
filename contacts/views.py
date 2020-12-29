@@ -7,42 +7,49 @@ from django.contrib.auth.decorators import login_required
 from .forms import ContactForm
 
 @login_required
-def contact_list(request, contact_slug=None):
+def contact_list(request):
     contacts = Contact.active.all()
-    contact = None
-    if contact_slug:
-        contact = get_object_or_404(Contact, slug=contact_slug)
 
     if request.method == 'POST':
-        if not contact:
-                contact_form = ContactForm(request.POST)
-                if contact_form.is_valid():
-                    new_contact = contact_form.save(commit=False)
-                    new_contact.slug = slugify(new_contact)
-                    new_contact.created_by = request.user
-                    new_contact.save()
-                    messages.success(request, ('Contact successfully created'))
-                    return redirect('contacts:index')
-        else:
-            contact_form = ContactForm(request.POST or None, instance=contact)
-            if contact_form.is_valid():
-                new_contact = contact_form.save(commit=False)
-                new_contact.slug = slugify(new_contact)
-                new_contact.created_by = request.user
-                new_contact.save()
-                messages.success(request, ('Contact successfully updated'))
-                return redirect('contacts:index')
-    else: 
-        if contact:
-            contact_form = ContactForm(request.POST or None, instance = contact)
-        else:
-            contact_form = ContactForm()
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            new_contact = contact_form.save(commit=False)
+            new_contact.slug = slugify(new_contact)
+            new_contact.created_by = request.user
+            new_contact.save()
+            messages.success(request, ('Contact has been created successfully'))
+            return redirect('contacts:index')
+    
+    contact_form = ContactForm()
 
     context = {'contacts': contacts, 
-                'contact': contact,
                'active': "contacts", 
                'contact_form': contact_form, 
                'modal_contact_title': "New Contact",
                }
 
     return render(request, "contacts/index.html", context)
+
+@login_required
+def contact_detail(request, contact_slug):
+    contact = get_object_or_404(Contact, slug=contact_slug)
+    contact_accounts_pks = contact.account_contacts.all().values_list('pk', flat=True)
+    related_contacts = Contact.active.filter(account_contacts__in=contact_accounts_pks).exclude(pk=contact.pk)
+    print(related_contacts)
+    if request.method == 'POST':
+        contact_form = ContactForm(request.POST, instance = contact) 
+        if contact_form.is_valid():
+            contact_form.save()
+            messages.success(request, ('Contact has been updated successfully'))
+            return redirect(contact)
+
+    contact_form = ContactForm(instance = contact)
+
+    context = {'contact': contact, 
+                'related_contacts': related_contacts,
+               'active': "contacts", 
+               'contact_form': contact_form, 
+               'modal_contact_title': "Update contact",
+               }
+
+    return render(request, "contacts/contact_detail.html", context)

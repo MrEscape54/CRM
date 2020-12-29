@@ -43,7 +43,7 @@
       <h1><i class="building right icon"></i> {{account.name}}</h1>
     </div>
     <div class="item">
-      <a href="#" class="ui grey basic mini button" id="modal_create">Edit</a>
+      <button class="ui grey basic mini button" id="modal_create">Edit</button>
     </div>
   </div>
 
@@ -99,11 +99,11 @@
     <tbody>
         {% for contact in account.contacts.all %}
         <tr>
-          <td>{{contact}}</td>
+          <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
           <td>{{contact.position}}</td>
           <td>{{contact.phone}}</td>
           <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
-          <td><i class="{{contact.location|lower}} flag"></i> {{contact.location}}</td>
+          <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
         </tr>
         {%empty%}
         <td>No contacts provided</td>

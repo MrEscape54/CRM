@@ -26,7 +26,7 @@ def account_list(request):
                 new_account.save()
                 # Mandatory to save m2m relationships if commit= False
                 account_form.save_m2m()
-                messages.success(request, ('Account successfully created'))
+                messages.success(request, ('Account has been created successfully'))
                 return redirect('accounts:index')
 
         # if submit is triggered by Parent form
@@ -37,7 +37,7 @@ def account_list(request):
                 new_parent.created_by = request.user
                 new_parent.slug = slugify(new_parent.name)
                 new_parent.save()
-                messages.success(request, ('Parent Account successfully created'))
+                messages.success(request, ('Parent Account has been created successfully'))
                 return redirect('accounts:index')
     else: 
         account_form = AccountForm(initial={'assigned_to': request.user}, prefix='account')
@@ -67,15 +67,15 @@ def account_detail(request, account_slug):
         if request.POST.get("form_type") == 'form_account':
             if account_form.is_valid():
                 account_form.save()
-                messages.success(request, ('Account successfully updated'))
-                return redirect('accounts:index')
+                messages.success(request, ('Account has been updated successfully'))
+                return redirect(account)
 
         # if submit is triggered by Parent form
         elif request.POST.get("form_type") == 'form_parent': 
             if parent_form.is_valid():
                 parent_form.save()
-                messages.success(request, ('Parent Account successfully updated'))
-                return redirect('accounts:index')
+                messages.success(request, ('Parent Account has been updated successfully'))
+                return redirect(account)
     else: 
         account_form = AccountForm(request.POST or None, instance = account, prefix='account')
         parent_form = ParentForm(request.POST or None, instance = account.parent_company, prefix='parent')
