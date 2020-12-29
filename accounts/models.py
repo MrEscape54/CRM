@@ -28,7 +28,7 @@ class ParentCompany(models.Model):
         ordering = ["name"]
 
     objects = models.Manager() # The default manager.
-    active = ActiveParentManager() # Our custom manager.
+    active = ActiveParentManager() # Custom manager.
 
 
 
@@ -48,11 +48,10 @@ class Account(models.Model):
     website = models.URLField(_("Website"), blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(_("Is Active"), default=True)
-    #TODO:  Agregar una columna con deals que sume el total y agregar un modal para ver lista de deals.
     created_by = models.ForeignKey(User, related_name="account_created_by", on_delete=models.PROTECT)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated"), auto_now=True)
-    contacts = models.ManyToManyField(Contact, related_name="account_contacts", blank=True)
+    contacts = models.ManyToManyField(Contact, related_name="account_contacts")
     assigned_to = models.ForeignKey(User, related_name="account_assigned_user", on_delete=models.PROTECT)
 
 
@@ -66,5 +65,5 @@ class Account(models.Model):
         ordering = ["status"]
 
     objects = models.Manager() # The default manager.
-    active = ActiveAccountsManager() # Our custom manager.
+    active = ActiveAccountsManager() # Custom manager.
 

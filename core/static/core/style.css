@@ -89,6 +89,10 @@ textarea{
   margin-bottom: 2px;
 }
 
+.modal-button i{
+  cursor: pointer;
+}
+
 .ui.relaxed.list:not(.horizontal)>.item:not(:first-child) {
     padding-top: 1em;
 }

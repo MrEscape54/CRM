@@ -24,6 +24,9 @@ $(".ui.accordion").accordion({
   exclusive: false, 
 });
 
+$(".selection.dropdown").dropdown();
+$(".ui.checkbox").checkbox();
+
 $(".message .close").on("click", function () {
   $(this).closest(".message").transition("fade");
 });

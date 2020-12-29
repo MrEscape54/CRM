@@ -1,4 +1,5 @@
 from accounts.models import Account
+from django.views.generic import ListView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from django.contrib import messages
@@ -12,23 +13,25 @@ def account_list(request):
 
     if request.method == 'POST':
         # Instantiate both Account and Parent forms
-        account_form = AccountForm(request.POST)
-        parent_form = ParentForm(request.POST)
+        account_form = AccountForm(request.POST, prefix='account')
+        parent_form = ParentForm(request.POST, prefix='parent')
 
         # if submit is triggered by Account form
         if request.POST.get("form_type") == 'form_account':
-            parent_form = ParentForm()
+            parent_form = ParentForm(prefix='parent')
             if account_form.is_valid():
                 new_account = account_form.save(commit=False)
                 new_account.slug = slugify(new_account.name)
                 new_account.created_by = request.user
                 new_account.save()
+                # Mandatory to save m2m relationships if commit= False
+                account_form.save_m2m()
                 messages.success(request, ('Account successfully created'))
                 return redirect('accounts:index')
 
         # if submit is triggered by Parent form
         elif request.POST.get("form_type") == 'form_parent':
-            account_form = AccountForm()    
+            account_form = AccountForm(prefix='account')    
             if parent_form.is_valid():
                 new_parent = parent_form.save(commit=False)
                 new_parent.created_by = request.user
@@ -37,8 +40,8 @@ def account_list(request):
                 messages.success(request, ('Parent Account successfully created'))
                 return redirect('accounts:index')
     else: 
-        account_form = AccountForm(initial={'assigned_to': request.user})
-        parent_form = ParentForm()
+        account_form = AccountForm(initial={'assigned_to': request.user}, prefix='account')
+        parent_form = ParentForm(prefix='parent')
 
     context = {'accounts': accounts, 
                'active': "accounts", 
@@ -50,14 +53,15 @@ def account_list(request):
 
     return render(request, "accounts/index.html", context)
 
+
 @login_required
 def account_detail(request, account_slug):
     account = get_object_or_404(Account, slug=account_slug)
 
     if request.method == 'POST':
         # Instantiate both Account and Parent forms
-        account_form = AccountForm(request.POST or None, instance = account) 
-        parent_form = ParentForm(request.POST or None, instance = account.parent_company)
+        account_form = AccountForm(request.POST or None, instance = account, prefix='account') 
+        parent_form = ParentForm(request.POST or None, instance = account.parent_company, prefix='parent')
 
         # if submit is triggered by Account form
         if request.POST.get("form_type") == 'form_account':
@@ -73,8 +77,8 @@ def account_detail(request, account_slug):
                 messages.success(request, ('Parent Account successfully updated'))
                 return redirect('accounts:index')
     else: 
-        account_form = AccountForm(request.POST or None, instance = account)
-        parent_form = ParentForm(request.POST or None, instance = account.parent_company)
+        account_form = AccountForm(request.POST or None, instance = account, prefix='account')
+        parent_form = ParentForm(request.POST or None, instance = account.parent_company, prefix='parent')
 
     context = {'account': account, 
                'active': "accounts", 

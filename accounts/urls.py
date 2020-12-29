@@ -5,6 +5,7 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
+    #path("", views.AccountListView.as_view(), name="index"),
     path("", views.account_list, name="index"),
     path("<slug:account_slug>", views.account_detail, name="detail"),
 ]

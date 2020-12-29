@@ -1,7 +1,6 @@
 {% load widget_tweaks %}
 
 
-{% comment %} FIRST MODAL IS SHOWN TO CREATE A CONTACT{% endcomment %}
 <div class="ui modal contact_create">
   <div class="header">
     <i class="address card outline middle aligned icon"></i> {{modal_contact_title}}
@@ -43,7 +42,7 @@
                   <label for="{{ contact_form.source.id_for_label }}">{{ contact_form.source.label }}</label>
                   {% render_field contact_form.source class="ui selection dropdown"%}
               </div>
-              <div class="four wide required field">
+              <div class="four wide required field" id="vendor">
                   <label for="{{ contact_form.vendor.id_for_label }}">{{ contact_form.vendor.label }}</label>
                   {% render_field contact_form.vendor placeholder=contact_form.vendor.label%}
               </div>
@@ -59,7 +58,6 @@
       </form>
   </div>
 
-{% comment %} SECOND MODAL IS SHOWN TO CREATE A PARENT ACCOUNT{% endcomment %}  
   <div class="actions">
     <div class="ui red deny button">Cancel</div>
     <div class="ui approve positive right labeled icon button">
@@ -71,11 +69,11 @@
 <script>
 $(document).ready(function(){
   document.querySelector("#modal_create").onclick = function () {
-    $('#id_vendor').hide();
+    $('#vendor').hide();
 
     $('#id_source').on('change', function() {
       if (this.value === "Vendor Contact") {
-        $('#id_vendor').show();
+        $('#vendor').show();
         $('#contact').form('add rule', 'vendor', {
             rules: [{
               type: 'empty',
@@ -85,7 +83,7 @@ $(document).ready(function(){
         }
       else {
         $('#id_vendor').val("");
-        $('#id_vendor').hide();
+        $('#vendor').hide();
         $('#contact').form('remove fields', 'vendor');
         }
     });
@@ -112,8 +110,5 @@ $(document).ready(function(){
       }
     });
 });
-
-  $(".selection.dropdown").dropdown();
-  $('.ui.checkbox').checkbox();
 
 </script>

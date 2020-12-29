@@ -56,7 +56,9 @@
 
           {% for contact in source.list %}
             <tr>
-            <td class="modal-button" data-contact="{{contact.slug}}"><i class="edit green icon"></i></td>
+              <td class="modal-button" data-contact="{{contact.slug}}" data-tooltip="Click for last notes" data-position="top left" data-inverted="">
+                <i class="search plus grey icon"></i>
+              </td>
               <td>{{contact}}</a></td>
               <td>
                 {% if contact.account_contacts.first %}
@@ -73,7 +75,7 @@
               </td>
             </tr>
             
-            {% comment %} {% include 'contacts/contact_crud_modal.html' %} {% endcomment %}
+            {% include 'contacts/contact_detail_modal.html' %}
 
             {% endfor %}
 
