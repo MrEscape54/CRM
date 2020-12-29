@@ -51,7 +51,7 @@ class Account(models.Model):
     created_by = models.ForeignKey(User, related_name="account_created_by", on_delete=models.PROTECT)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated"), auto_now=True)
-    contacts = models.ManyToManyField(Contact, related_name="account_contacts")
+    contacts = models.ManyToManyField(Contact, related_name="account_contacts", blank=True)
     assigned_to = models.ForeignKey(User, related_name="account_assigned_user", on_delete=models.PROTECT)
 
 
