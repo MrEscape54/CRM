@@ -22,17 +22,14 @@ class Opportunity(models.Model):
     technology = models.ForeignKey(Technology, on_delete=models.PROTECT)
     currency = models.CharField(max_length=3, choices=CURRENCY_CODES, blank=True, null=True)
     amount = models.DecimalField(_("Opportunity Amount"), decimal_places=2, max_digits=12, blank=True, null=True)
-    date_of_funding = models.DateField(blank=True, null=True)
-    probability = models.IntegerField(default=0, blank=True, null=True)
-    contacts = models.ManyToManyField(Contact)
-    closed_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    contacts = models.ManyToManyField(Contact, related_name="opportunity_contacts")
     closed_on = models.DateField(blank=True, null=True)
+    closed_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     assigned_to = models.ManyToManyField(User, related_name="opportunity_assigned_to")
     created_by = models.ForeignKey(User, related_name="opportunity_created_by", on_delete=models.PROTECT)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated"), auto_now=True)
-    is_active = models.BooleanField(default=True)
 
 
     class Meta:

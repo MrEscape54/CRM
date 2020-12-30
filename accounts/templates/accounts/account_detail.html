@@ -92,7 +92,7 @@
         <th>Name <i class="sort icon"></i></th>
         <th>Position <i class="sort icon"></i></th>
         <th>Phone <i class="sort icon"></i></th>
-        <th>E-mail address <i class="sort icon"></i></th>
+        <th>Email <i class="sort icon"></i></th>
         <th>Location <i class="sort icon"></i></th>
       </tr>
     </thead>
@@ -101,7 +101,9 @@
         <tr>
           <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
           <td>{{contact.position}}</td>
-          <td>{{contact.phone}}</td>
+          <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
+            <input type="text" class="input-phone" value="{{ contact.phone}}">
+          </td>
           <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
           <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
         </tr>
@@ -116,7 +118,9 @@
 {% endblock content %}
 
 {% block javascript %}
-
+  
+  <script src="{% static 'global/cleave.js' %}"></script>
+  <script src="{% static 'global/cleave-phone.i18n.js' %}"></script>
   <script src="{% static 'global/global.js' %}"></script>  
 
 {% endblock javascript %}

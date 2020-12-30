@@ -64,6 +64,14 @@ OPP_STAGES = (
     ("Colsed Lost", _("CLOSED LOST")),
 )
 
+ACT_TYPES = (
+    ("Call", "Call"),
+    ("Meet", "Meet"),
+    ("Task", "Task"),
+    ("Email", "Email"),
+    ("Launch", "Launch"),
+)
+
 ACC_STATUS = (
     ('Client', _('Client')),
     ('Prospect', _('Prospect')),

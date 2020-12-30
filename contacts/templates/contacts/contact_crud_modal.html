@@ -34,11 +34,11 @@
           </div>
 
           <div class="fields">
-              <div class="four wide field">
+              <div class="three wide field">
                   <label for="{{ contact_form.phone.id_for_label }}">{{ contact_form.phone.label }}</label>
-                  {% render_field contact_form.phone placeholder=contact_form.phone.label%}
+                  {% render_field contact_form.phone class='input-phone' placeholder=contact_form.phone.label%}
               </div>
-              <div class="four wide field">
+              <div class="five wide field">
                   <label for="{{ contact_form.position.id_for_label }}">{{ contact_form.position.label }}</label>
                   {% render_field contact_form.position placeholder=contact_form.position.label%}
               </div>

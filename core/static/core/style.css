@@ -148,7 +148,7 @@ textarea{
   opacity: 100 !important;
 }
 
-.input-phone{
+ td .input-phone{
   border-color: white !important;
   color: rgba(0,0,0,.87);
   padding: 0 !important;
