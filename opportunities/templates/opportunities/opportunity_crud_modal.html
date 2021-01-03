@@ -1,0 +1,184 @@
+{% load widget_tweaks %}
+
+
+{% comment %} FIRST MODAL IS SHOWN TO CREATE AN OPPORTUNITY{% endcomment %}
+<div class="ui modal coupled account_create">
+  <div class="header">
+    <i class="briefcase middle aligned icon"></i> {{modal_opportunity_title}}
+  </div>
+  
+    <div class="content">
+
+        <form class="ui form {% if field.errors %} error{% endif %}" id="opportunity" action="" method="post" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="form_opp">
+            {% for hidden_field in opportunity_form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            <div class="fields">
+                <div class="five wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.name.id_for_label }}">{{ opportunity_form.name.label }}</label>
+                    {% render_field opportunity_form.name placeholder=opportunity_form.name.label%}
+                </div>
+                <div class="five wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.account.id_for_label }}">{{ opportunity_form.account.label }}</label>
+                    {% render_field opportunity_form.account class="ui fluid search selection dropdown"%}
+                </div>
+                <div class="three wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.priority.id_for_label }}">{{ opportunity_form.priority.label }}</label>
+                    {% render_field opportunity_form.priority class="ui selection dropdown"%}
+                </div>
+                <div class="three wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.source.id_for_label }}">{{ opportunity_form.source.label }}</label>
+                    {% render_field opportunity_form.source class="ui selection dropdown"%}
+                </div>
+            </div>
+
+            <div class="fields">
+                <div class="three wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.category.id_for_label }}">{{ opportunity_form.category.label }}</label>
+                    {% render_field opportunity_form.category class="ui selection dropdown"%}
+                </div>
+                <div class="three wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.stage.id_for_label }}">{{ opportunity_form.stage.label }}</label>
+                    {% render_field opportunity_form.stage class="ui selection dropdown"%}
+                </div>
+                <div class="three wide field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.currency.id_for_label }}">{{ opportunity_form.currency.label }}</label>
+                    {% render_field opportunity_form.currency class="ui fluid search selection dropdown"%}
+                </div>
+                <div class="three wide field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.amount.id_for_label }}">{{ opportunity_form.amount.label }}</label>
+                    {% render_field opportunity_form.amount placeholder="Amount"%}
+                </div>
+                <div class="four wide required field {% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.technology.id_for_label }}">{{ opportunity_form.technology.label }}</label>
+                    {% render_field opportunity_form.technology class="ui fluid search selection dropdown"%}
+                </div>
+                {% if modal_opportunity_title == "New Opportunity" %}
+                  <div class="one wide field plus-icon">
+                      <i class="plus green icon"></i>
+                  </div>
+                {% else %}
+                  <div class="one wide field plus-icon">
+                    <i class="pencil alternate green icon"></i>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="fields">
+              <div class="five wide required {% if not request.user.is_staff %} disabled {% endif %}field{% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.assigned_to.id_for_label }}">{{ opportunity_form.assigned_to.label }}</label>
+                    {% render_field opportunity_form.assigned_to class="ui fluid search selection dropdown"%}
+              </div>
+
+              <div class="five wide field">
+                    <label for="{{ opportunity_form.contacts.id_for_label }}">{{ opportunity_form.contacts.label }}</label>
+                    {% render_field opportunity_form.contacts class="ui fluid multiple search selection dropdown"%}
+              </div>
+            </div>
+          
+            <div class="required field">
+                    <label for="{{ opportunity_form.description.id_for_label }}">{{ opportunity_form.description.label }}</label>
+                    {% render_field opportunity_form.description placeholder=opportunity_form.description.label rows=2 %}
+            </div>
+
+          <button id="account_submit"  style="display:none" type="submit"></button>
+          <div class="ui error message"></div>
+        </form>
+  </div>
+
+  <div class="actions">
+    <div class="ui red deny button">Cancel</div>
+    <div class="ui approve positive right labeled icon button">
+      Save<i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+{% comment %} SECOND MODAL IS SHOWN TO CREATE A ECHNOLOGY{% endcomment %}  
+
+<div class="ui mini modal coupled parent_create">
+  <div class="header">
+    <i class="code middle aligned icon"></i> {{modal_technology_title}}
+  </div>
+  <div class="content">
+
+        <form class="ui form" id="technology" action="" method="post" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="form_tech">
+            {% for hidden_field in technology_form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+            <div class="fields">
+              <div class="sixteen wide required field">
+                  <label for="{{ technology_form.name.id_for_label }}">{{ technology_form.name.label }}</label>
+                  {% render_field technology_form.name placeholder=technology_form.name.label%}
+              </div>
+            </div>
+            
+          <button id="parent_submit"  style="display:none" type="submit"></button>
+          <div class="ui error message"></div>
+        </form>
+  </div>
+  <div class="actions">
+    <div class="ui red deny button type">Cancel</div>
+    <div class="ui approve positive right labeled icon button">
+      Save<i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  document.querySelector("#modal_create").onclick = function () {
+    $(".coupled").modal({
+      allowMultiple: true
+    });
+    // open second modal on first modal buttons
+    $(".parent_create").modal("attach events", ".account_create .plus-icon").modal({
+        onDeny    : function(){
+          $('.parent_create').hide();
+        },
+        onApprove : function() {
+          $('#parent_submit').click();
+          return false
+        }
+      })
+    // show first immediately
+    $(".account_create").modal({
+        onDeny    : function(){
+          $('.account_create').hide();
+        },
+        onApprove : function() {
+          $('#account_submit').click();
+          return false
+        }
+      })
+      .modal('show');
+  };
+  $('#opportunity')
+  .form({
+    fields: {
+      'opp-name'     : 'empty',
+      'opp-account'     : 'empty',
+      'opp-priority'     : 'empty',
+      'opp-source'     : 'empty',
+      'opp-category'     : 'empty',
+      'opp-stage'     : 'empty',
+      'opp-technology'     : 'empty',
+      'opp-description'     : 'empty',
+
+      }
+    });
+
+  $('#technology')
+  .form({
+    fields: {
+      'tech-name'     : 'empty',
+      }
+    });
+});
+
+</script>

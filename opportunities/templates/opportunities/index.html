@@ -1,5 +1,116 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
 
 {% block content %}
-Opp Page
+
+{% if opportunity_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in opportunity_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in opportunity_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% if technology_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in technology_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in technology_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+<div class="ui container account">
+
+<h1><i class="briefcase right icon"></i> Opportunities</h1>
+<button class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Opportunity</button>
+<br>
+
+  {% include 'opportunities/opportunity_crud_modal.html' %}
+
+
+{% regroup opportunities by stage as stage_list %}
+
+  <div class="ui accordion">
+    
+    {% for stage in stage_list %}
+    
+      <div class="title">
+        <i class="dropdown icon"></i>
+        <h3>{{stage.grouper|slice:"4:"}}</h3>
+      </div>
+      <div class="content">
+
+        <table class="ui olive selectable table transition hidden tablesorter" id="{{stage.grouper|slugify}}">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name  <i class="sort icon"></i></th>
+              <th>Priority  <i class="sort icon"></i></th>
+              <th>Account <i class="sort icon"></th>
+              <th>Source <i class="sort icon"></th>
+              <th>Technology  <i class="sort icon"></th>
+              <th>Categoty  <i class="sort icon"></th>
+              <th>Currency  <i class="sort icon"></th>
+              <th>Amount  <i class="sort icon"></th>
+              <th>Expected Closing Date <i class="sort icon"></th>
+              <th>Assigned to  <i class="sort icon"></th>
+
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+          {% for opportunity in stage.list %}
+            <tr>
+              <td class="modal-button" data-opportunity="{{opportunity.slug}}" data-tooltip="Click for extra information" data-position="top left" data-inverted=""><i class="search plus grey icon"></i></td>
+              <td><a href="{{opportunity.get_absolute_url}}">{{opportunity.name}}</a></td>
+              <td>{{ opportunity.get_priority_display}}</td>
+              <td><a href="{{opportunity.account.get_absolute_url}}">{{opportunity.account}}</a></td>
+              <td>{{ opportunity.source|capfirst}}</td>
+              <td>{{ opportunity.technology}}</td>
+              <td>{{ opportunity.category}}</td>
+              <td>{{ opportunity.get_currency_display}}</td>
+              <td>{{ opportunity.amount|floatformat|intcomma}}</td>
+              <td>{{ opportunity.EDC|date:"F, o"}}</td>
+              <td>{{ opportunity.assigned_to.get_full_name}}</td>
+            </tr>
+
+            
+            {% include 'opportunities/opportunity_detail_modal.html' %}
+
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+      <br>
+
+    {% endfor %}
+
+  </div>
+
 {% endblock content %}
+
+{% block javascript %}
+
+  <script src="{% static 'global/global.js' %}"></script>  
+
+{% endblock javascript %}

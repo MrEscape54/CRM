@@ -41,35 +41,42 @@ OPP_SOURCE = (
     ("call", _("Call")),
     ("email", _("Email")),
     ("existing customer", _("Existing Customer")),
-    ("partner", _("Partner")),
+    ("vendor", _("Vendor")),
     ("public relations", _("Public Relations")),
     ("compaign", _("Campaign")),
     ("other", _("Other")),
 )
 
-PRIORITY_CHOICE = (
-    ("Low", "Low"),
-    ("Normal", "Normal"),
-    ("High", "High"),
-    ("Urgent", "Urgent"),
+OPP_PRIORITY = (
+    ("4 - Low", _("Low")),
+    ("3 - Normal", _("Normal")),
+    ("2 - High", _("High")),
+    ("1 - Urgent", _("Urgent")),
 )
 
 OPP_STAGES = (
-    ("Identification", _("IDENTIFICATION")),
-    ("In Contact", _("IN CONTACT")),
-    ("Under Analysis", _("UNDER ANALYSIS")),
-    ("Price Quote", _("PRICE QUOTE")),
-    ("Negotiation/Review", _("NEGOTIATION/REVIEW")),
-    ("Closed Won", _("CLOSED WON")),
-    ("Colsed Lost", _("CLOSED LOST")),
+    ("5 - Identification", _("Identification")),
+    ("4 - In Contact", _("In Contact")),
+    ("3 - Under Analysis", _("Under Analysis")),
+    ("2 - Price Quote", _("Price Quote")),
+    ("1 - Negotiation/Review", _("Negotiation/Review")),
+    ("6 - Closed Won", _("Closed Won")),
+    ("7 - Colsed Lost", _("Closee Lost")),
+)
+
+OPP_CATEGORY = (
+    ('Support', _('Support')),
+    ('Implementation', _('Implamentation')),
+    ('Assessment', _('Assessment')),
+    ('Outsourcing', _('Outsourcing')),
 )
 
 ACT_TYPES = (
-    ("Call", "Call"),
-    ("Meet", "Meet"),
-    ("Task", "Task"),
-    ("Email", "Email"),
-    ("Launch", "Launch"),
+    ("Call", _("Call")),
+    ("Meet", _("Meet")),
+    ("Task", _("Task")),
+    ("Email", _("Email")),
+    ("Launch", _("Launch")),
 )
 
 ACC_STATUS = (

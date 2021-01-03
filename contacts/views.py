@@ -46,7 +46,7 @@ def contact_detail(request, contact_slug):
     contact_form = ContactForm(instance = contact)
 
     context = {'contact': contact, 
-                'related_contacts': related_contacts,
+               'related_contacts': related_contacts,
                'active': "contacts", 
                'contact_form': contact_form, 
                'modal_contact_title': "Update contact",

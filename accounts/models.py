@@ -26,6 +26,8 @@ class ParentCompany(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name_plural = 'Parent Conmpanies'
+
 
     objects = models.Manager() # The default manager.
     active = ActiveParentManager() # Custom manager.

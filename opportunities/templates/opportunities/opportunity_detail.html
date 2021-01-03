@@ -1,0 +1,126 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+
+{% if account_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in account_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in account_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% if parent_form.errors %} 
+  <div class="ui three column centered grid dj-message">
+    <div class="column">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        {% for field in parent_form.visible_fields %}
+            {{field.errors}}
+        {% endfor %}
+        {% for error in parent_form.non_field_errors %}
+          {{ error }}
+      {% endfor %}
+      </div>
+    </div>       
+  </div>  
+{% endif %}
+
+{% include 'accounts/account_crud_modal.html' %}
+
+<div class="ui container account-detail">
+  <div class="ui secondary menu">
+    <div class="item">
+      <h1><i class="building right icon"></i> {{account.name}}</h1>
+    </div>
+    <div class="item">
+      <button class="ui grey basic mini button" id="modal_create">Edit</button>
+    </div>
+  </div>
+
+  <table class="ui very compact table">
+    <thead>
+      <tr>
+        <th>Account Information:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Assigned to:</b></td>
+        <td>{{account.assigned_to.get_full_name}}</td>
+      </tr>
+      <tr>
+        <td><b>Parent Account:</b></td>
+        <td>{{account.parent_company}}</td>
+      </tr>
+      <tr>
+        <td><b>Country:</b></td>
+        <td><i class="{{account.country|lower}} flag"></i> {{account.get_country_display}}</td>
+      </tr>
+      <tr>
+        <td><b>Address:</b></td>
+        <td>{{account.address}}</td>
+      </tr>
+      <tr>
+        <td><b>Industry:</b></td>
+        <td>{{account.industry}}</td>
+      </tr>
+      <tr>
+        <td><b>Web:</b></td>
+        <td><a href="{{account.website}}" target="_blank">Visit<a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="ui fluid container contacts">
+<div class="ui container">
+  <h4 class="ui teal">CONTACTS</h4>
+  <table class="ui single line teal table tablesorter">
+    <thead>
+      <tr>
+        <th>Name <i class="sort icon"></i></th>
+        <th>Position <i class="sort icon"></i></th>
+        <th>Phone <i class="sort icon"></i></th>
+        <th>Email <i class="sort icon"></i></th>
+        <th>Location <i class="sort icon"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for contact in account.contacts.all %}
+        <tr>
+          <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
+          <td>{{contact.position}}</td>
+          <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
+            <input type="text" class="input-phone" value="{{ contact.phone}}">
+          </td>
+          <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
+          <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
+        </tr>
+        {%empty%}
+        <td>No contacts provided</td>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+  
+  <script src="{% static 'global/cleave.js' %}"></script>
+  <script src="{% static 'global/cleave-phone.i18n.js' %}"></script>
+  <script src="{% static 'global/global.js' %}"></script>  
+
+{% endblock javascript %}
