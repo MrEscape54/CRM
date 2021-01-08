@@ -55,6 +55,10 @@
         <td><b>Position:</b></td>
         <td>{{contact.position}}</td>
       </tr>
+      </tr>
+        <td><b>Is Lead:</b></td>
+        <td>{% if contact.is_lead %}<i class="check green icon"></i>{% else %}<i class="close red icon"></i>{% endif %}</td>
+      </tr>
       <tr>
         <td><b>Location:</b></td>
         <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
@@ -83,6 +87,7 @@
     <thead>
       <tr>
         <th>Name <i class="sort icon"></i></th>
+        <th>Lead <i class="sort icon"></i></th>
         <th>Account <i class="sort icon"></i></th>
         <th>Position <i class="sort icon"></i></th>
         <th>Phone <i class="sort icon"></i></th>
@@ -92,7 +97,8 @@
     </thead>
     <tbody>
       {% for contact in related_contacts %}
-        <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
+          <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
+          <td>{% if contact.is_lead %}<i class="check green icon"></i>{% else %}<i class="close red icon"></i>{% endif %}</td>
             <td><a href="{{contact.account_contacts.first.get_absolute_url}}">{{contact.account_contacts.first}}</a></td>
             <td>{{contact.position}}</td>
             <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}

@@ -9,7 +9,7 @@ class TechnologyForm(forms.ModelForm):
 class OpportunityForm(forms.ModelForm):
     class Meta:
         model = Opportunity
-        exclude = ('slug', 'closed_by', 'created_by',)
+        exclude = ('slug', 'created_by',)
 
     def __init__(self, *args, **kwargs):
         super(OpportunityForm, self).__init__(*args, **kwargs)

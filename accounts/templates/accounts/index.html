@@ -78,7 +78,10 @@
               <td><a href="{{account.get_absolute_url}}">{{account.name}}</a></td>
               <td>{{ account.industry}}</td>
               <td><i class="{{account.country|lower}} flag"></i> {{account.get_country_display}}</td>
-              <td><a href="{{account.contacts.first.get_absolute_url}}">{{ account.contacts.first}}</a></td>
+              <td>
+                {% if account.contacts.first %}
+                  <a href="{{account.contacts.first.get_absolute_url}}">{{ account.contacts.first}}</a></td>
+                {% endif %}
               <td>{{ account.assigned_to.get_full_name}}</td>
               <td>{{ account.address}}</td>
               <td><a href="{{ account.website}}" target="_blank">Visit</a></td>

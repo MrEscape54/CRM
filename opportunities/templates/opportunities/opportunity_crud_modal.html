@@ -73,9 +73,16 @@
                     {% render_field opportunity_form.assigned_to class="ui fluid search selection dropdown"%}
               </div>
 
-              <div class="five wide field">
+              <div class="eleven wide field">
                     <label for="{{ opportunity_form.contacts.id_for_label }}">{{ opportunity_form.contacts.label }}</label>
                     {% render_field opportunity_form.contacts class="ui fluid multiple search selection dropdown"%}
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="four wide required field ui calendar{% if field.errors %} error{% endif %}">
+                    <label for="{{ opportunity_form.EDC.id_for_label }}">{{ opportunity_form.EDC.label }}</label>
+                    {% render_field opportunity_form.EDC %}
               </div>
             </div>
           
@@ -180,5 +187,10 @@ $(document).ready(function(){
       }
     });
 });
+
+$(".ui.approve").on('click', function(){
+  let amount = $("#id_opp-amount").val();
+  $("#id_opp-amount").val(amount.replace(/,(?=\d{3})/g, "")); 
+})
 
 </script>

@@ -20,7 +20,7 @@ class Technology(models.Model):
 
 class Opportunity(models.Model):
     name = models.CharField(pgettext_lazy("Name of Opportunity", "Name"), max_length=64)
-    account = models.ForeignKey(Account, related_name="opportunities", on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, related_name="account_opportunities", on_delete=models.CASCADE)
     slug = models.SlugField()
     stage = models.CharField(pgettext_lazy("Stage of Opportunity", "Stage"), max_length=64, choices=OPP_STAGES)
     source = models.CharField(pgettext_lazy("Source of Opportunity", "Source"), max_length=64, choices=OPP_SOURCE)
@@ -34,8 +34,8 @@ class Opportunity(models.Model):
     closed_on = models.DateField(blank=True, null=True)
     closed_by = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
     description = models.TextField()
-    assigned_to = models.ForeignKey(User, related_name="opportunity_assigned_user", on_delete=models.PROTECT)
-    created_by = models.ForeignKey(User, related_name="opportunity_created_by", on_delete=models.PROTECT)
+    assigned_to = models.ForeignKey(User, related_name="assigned_user_opportunities", on_delete=models.PROTECT)
+    created_by = models.ForeignKey(User, related_name="created_by_opportunities", on_delete=models.PROTECT)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated"), auto_now=True)
 

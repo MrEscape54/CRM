@@ -90,6 +90,7 @@
     <thead>
       <tr>
         <th>Name <i class="sort icon"></i></th>
+        <th>Is Lead <i class="sort icon"></i></th>
         <th>Position <i class="sort icon"></i></th>
         <th>Phone <i class="sort icon"></i></th>
         <th>Email <i class="sort icon"></i></th>
@@ -100,6 +101,7 @@
         {% for contact in account.contacts.all %}
         <tr>
           <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
+          <td>{% if contact.is_lead %}<i class="check green icon"></i>{% else %}<i class="close red icon"></i>{% endif %}</td>
           <td>{{contact.position}}</td>
           <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
             <input type="text" class="input-phone" value="{{ contact.phone}}">

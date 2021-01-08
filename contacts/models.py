@@ -20,6 +20,7 @@ class Contact(models.Model):
     source = models.CharField(_("Source"), max_length=20, choices=utils.CONTACT_SOURCE, default="Account Contact")
     vendor = models.CharField(_("Vendor"), max_length=50, null=True, blank=True)
     position = models.CharField(max_length=64, blank=True, null=True)
+    is_lead = models.BooleanField(_("Lead"), default=False)
     is_active = models.BooleanField(_("Is Active"), default=True)
     created_by = models.ForeignKey(User, related_name="contact_created_by", on_delete=models.PROTECT)
     created = models.DateTimeField(_("Created on"), auto_now_add=True)

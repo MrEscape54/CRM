@@ -50,6 +50,7 @@ textarea{
 
 .ui.menu:not(.vertical) .item > .button {
   padding: 7px 1.14285714em !important; 
+  margin-right: 10px;
 }
 
 .ui.secondary.pointing.menu p {
@@ -123,11 +124,8 @@ textarea{
 }
 
 .account-detail .table{
-  width: auto;
   border: none;
   line-height: 1em;
-  margin-bottom: 30px !important;
-
 }
 .account-detail .ui.table tr td{
   border: none;
@@ -137,6 +135,10 @@ textarea{
   background-color: white;
   border: none;
   font-size: 1.1em;
+}
+
+.ui.very.compact{
+  width: auto;
 }
 
 .ui.fluid.container.contacts{
@@ -159,3 +161,9 @@ textarea{
 
   background-color: #F2F2F2 !important;
 }
+
+.description .item span, td span{
+  color: red;
+  font-weight: bolder;
+}
+

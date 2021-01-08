@@ -44,11 +44,12 @@
             <tr>
             <th></th>
               <th>Name  <i class="sort icon"></i></th>
+              <th>Lead <i class="sort icon"></i></th>
               <th>{% if source.grouper == "Account Contact" %}Account{% else %}Vendor{% endif %} <i class="sort icon"></i></th>
               <th>Position <i class="sort icon"></th>
-              <th>Location  <i class="sort icon"></th>
-              <th>Email  <i class="sort icon"></th>
               <th>Phone  <i class="sort icon"></th>
+              <th>Email  <i class="sort icon"></th>
+              <th>Location  <i class="sort icon"></th>
             </tr>
           </thead>
 
@@ -60,6 +61,7 @@
                 <i class="search plus grey icon"></i>
               </td>
               <td><a href="{{contact.get_absolute_url}}">{{contact}}</a></td>
+              <td>{% if contact.is_lead %}<i class="check green icon"></i>{% else %}<i class="close red icon"></i>{% endif %}</td>
               <td>
                 {% if contact.account_contacts.first %}
                   <a href="{{contact.account_contacts.first.get_absolute_url}}">{{contact.account_contacts.first}}</a>
@@ -68,11 +70,11 @@
                 {% endif %}
               </td>
               <td>{{ contact.position}}</td>
-              <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
-              <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
               <td class="ui disabled disabled-phone"> {% if  contact.phone %}<i class="{{contact.location|lower}} flag"></i>{% endif %}
                 <input type="text" class="input-phone" value="{{ contact.phone}}">
               </td>
+              <td><a href="mailto:{{contact.email}}">{{contact.email|lower}}</a></td>
+              <td><i class="{{contact.location|lower}} flag"></i> {{contact.get_location_display}}</td>
             </tr>
             
             {% include 'contacts/contact_detail_modal.html' %}

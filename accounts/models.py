@@ -43,7 +43,7 @@ class Account(models.Model):
     name = models.CharField(pgettext_lazy("Name of Account", "Name"), max_length=64, unique=True, help_text='Required')
     country = models.CharField(_("Country"), max_length=30, choices=utils.COUNTRIES, help_text='Required')
     industry = models.CharField(_("Industry"), max_length=255, choices=utils.ACC_INDUSTRY, help_text='Required')
-    parent_company = models.ForeignKey(ParentCompany, related_name="parent_company", on_delete=models.PROTECT, help_text='Required')
+    parent_company = models.ForeignKey(ParentCompany, related_name="account_parent_company", on_delete=models.PROTECT, help_text='Required')
     slug = models.SlugField(unique=True)
     status = models.CharField(_("Status"), max_length=15, choices=utils.ACC_STATUS, default="Prospect", help_text='Required')
     address = models.CharField(_("Address"), max_length=255, blank=True, null=True)

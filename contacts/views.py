@@ -20,7 +20,8 @@ def contact_list(request):
             messages.success(request, ('Contact has been created successfully'))
             return redirect('contacts:index')
     
-    contact_form = ContactForm()
+    else: 
+        contact_form = ContactForm()
 
     context = {'contacts': contacts, 
                'active': "contacts", 
@@ -35,7 +36,7 @@ def contact_detail(request, contact_slug):
     contact = get_object_or_404(Contact, slug=contact_slug)
     contact_accounts_pks = contact.account_contacts.all().values_list('pk', flat=True)
     related_contacts = Contact.active.filter(account_contacts__in=contact_accounts_pks).exclude(pk=contact.pk)
-    print(related_contacts)
+    
     if request.method == 'POST':
         contact_form = ContactForm(request.POST, instance = contact) 
         if contact_form.is_valid():
@@ -43,7 +44,8 @@ def contact_detail(request, contact_slug):
             messages.success(request, ('Contact has been updated successfully'))
             return redirect(contact)
 
-    contact_form = ContactForm(instance = contact)
+    else:
+        contact_form = ContactForm(instance = contact)
 
     context = {'contact': contact, 
                'related_contacts': related_contacts,
