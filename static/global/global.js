@@ -45,11 +45,3 @@ phones.forEach(function (phone) {
     phoneRegionCode: "{country}",
   });
 });
-
-//Number format only works on input type: text
-$("#id_opp-amount").attr("type", "text"); 
-
-var cleave = new Cleave("#id_opp-amount", {
-  numeral: true,
-  numeralThousandsGroupStyle: "thousand",
-});

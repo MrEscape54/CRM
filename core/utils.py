@@ -61,7 +61,7 @@ OPP_STAGES = (
     ("2 - Price Quote", _("Price Quote")),
     ("1 - Negotiation/Review", _("Negotiation/Review")),
     ("6 - Closed Won", _("Closed Won")),
-    ("7 - Closed Lost", _("Closee Lost")),
+    ("7 - Closed Lost", _("Closed Lost")),
 )
 
 OPP_CATEGORY = (

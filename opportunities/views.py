@@ -95,11 +95,13 @@ def opportunity_detail(request, opp_slug):
 @login_required
 def won(request, opp_slug):
     opportunity = get_object_or_404(Opportunity, slug=opp_slug)
-    opportunity.closed_by = request.user
-    opportunity.stage = "6 - Closed Won"
-    opportunity.closed_on = datetime.date.today()
-    opportunity.save()
-    messages.success(request, ('Opportunity has been updated successfully'))
+
+    if request.method == 'POST':
+        opportunity.closed_by = request.user
+        opportunity.stage = "6 - Closed Won"
+        opportunity.closed_on = datetime.date.today()
+        opportunity.save()
+        messages.success(request, ('Opportunity has been updated successfully'))
 
     return redirect(opportunity)
 
@@ -107,10 +109,12 @@ def won(request, opp_slug):
 @login_required
 def lost(request, opp_slug):
     opportunity = get_object_or_404(Opportunity, slug=opp_slug)
-    opportunity.closed_by = request.user
-    opportunity.stage = "7 - Closed Lost"
-    opportunity.closed_on = datetime.date.today()
-    opportunity.save()
-    messages.success(request, ('Opportunity has been updated successfully'))
+
+    if request.method == 'POST':
+        opportunity.closed_by = request.user
+        opportunity.stage = "7 - Closed Lost"
+        opportunity.closed_on = datetime.date.today()
+        opportunity.save()
+        messages.success(request, ('Opportunity has been updated successfully'))
 
     return redirect(opportunity)

@@ -44,7 +44,7 @@
                             <div class="collapse navbar-collapse" id="navbar-collapse-2">
 
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="current-item-top"><a href="{% url "social:begin" "google-oauth2" %}" class="navlink-home">Ingresar</a></li>
+                                    <li class="current-item-top"><a href="{% url "social:begin" "google-oauth2" %}?next={{ request.GET.next }}" class="navlink-home">Ingresar</a></li>
                                 </ul>
 
                             </div><!-- /.navbar-collapse -->

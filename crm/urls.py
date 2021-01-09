@@ -10,9 +10,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('tinymce/', include('tinymce.urls')),
 
-    #Homepage
-    path("", views.home, name="home"),
-
     #Apps
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),

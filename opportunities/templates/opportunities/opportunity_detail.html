@@ -38,17 +38,25 @@
 
 {% include 'opportunities/opportunity_crud_modal.html' %}
 
-<div class="ui container account-detail">
+<div class="ui container account-detail opp">
   <div class="ui secondary menu">
     <div class="item">
       <h1><i class="briefcase right icon"></i> {{opportunity}}</h1>
     </div>
     <div class="item">
       <button class="ui grey basic mini button" id="modal_create">Edit</button>  
-      <a href="{% url 'opportunities:won' opportunity.slug %}" class="ui green mini button" id="won">Won</a>
-      <a href="{% url 'opportunities:lost' opportunity.slug %}" class="ui red mini button" id="won">Lost</a>
+      <form action="{% url 'opportunities:won' opportunity.slug %}" method="post">
+        {% csrf_token %}
+        <button class="ui green mini button" type="submit">Won</button>
+      </form>
+      <form action="{% url 'opportunities:lost' opportunity.slug %}" method="post">
+        {% csrf_token %}
+        <button class="ui red mini button" type="submit">Lost</button>
+      </form>
     </div>
   </div>
+
+  <p class="opp_desc">{{opportunity.description}}</p>
 
 
   <table class="ui table">
@@ -77,11 +85,15 @@
               </tr>
               <tr>
                 <td><b>Amount:</b></td>
-                <td><span>{{opportunity.currency}} {{opportunity.amount|floatformat|intcomma}}</span></td>
+                <td><span>{{opportunity.currency}} {{opportunity.amount|floatformat|intcomma}}</span>
+                </td>
               </tr>
               <tr>
                 <td><b>Stage:</b></td>
-                <td>{{opportunity.get_stage_display}}</td>
+                <td {% if opportunity.get_stage_display == "Closed Won" %}class="won"
+                    {% elif opportunity.get_stage_display == "Closed Lost" %}class="lost"{% endif %}>
+                    {{opportunity.get_stage_display}}
+                </td>
               </tr>
               <tr>  
                 <td><b>Assigned to:</b></td>
@@ -128,9 +140,6 @@
       </tr>
     </tbody>
   </table>
-
-
-
 
   
 </div>

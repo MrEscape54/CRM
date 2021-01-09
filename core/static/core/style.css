@@ -48,9 +48,10 @@ textarea{
   align-self: baseline !important;
 }
 
-.ui.menu:not(.vertical) .item > .button {
+.ui.menu:not(.vertical) .item  .button {
   padding: 7px 1.14285714em !important; 
   margin-right: 10px;
+  font-size: 1rem;
 }
 
 .ui.secondary.pointing.menu p {
@@ -163,7 +164,26 @@ textarea{
 }
 
 .description .item span, td span{
-  color: red;
+  color: orange;
   font-weight: bolder;
+}
+
+.opp_desc{
+  padding-left: 15px;
+
+}
+
+.account-detail.opp .ui.secondary.menu{
+  margin-bottom: 0;
+}
+
+.won{
+  color: green;
+  font-weight: 600;
+}
+
+.lost{
+  color: red;
+  font-weight: 600;
 }
 
