@@ -187,3 +187,27 @@ textarea{
   font-weight: 600;
 }
 
+
+/* Accordion titles */
+.section-title{
+  display: inline;
+}
+
+/* Accordion titles */
+#client{color:teal;}
+#former-client{color:#b5cc18;}
+#prospect{color:#21ba45;}
+
+.account-contact{  color: teal}
+.vendor-contact{  color: #b5cc18}
+
+.identification{  color: #fbbd08}
+.in-contact{  color: #b5cc18}
+.under-analysis{  color: #00b5ad}
+.price-quote{  color: #767676}
+.negotiationreview{  color: #2185d0}
+.closed-won{ color: #21ba45;}
+.closed-lost{  color: #db2828}
+
+
+
