@@ -104,7 +104,8 @@ class AccountList(generics.ListCreateAPIView):
     serializer_class = AccountSerializer
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        serializer.save(created_by=self.request.user, 
+                        slug=slugify(serializer.validated_data['name']))
 
         
 
@@ -114,7 +115,8 @@ class ParentAccountList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
 
-        serializer.save(created_by=self.request.user)
+        serializer.save(created_by=self.request.user, 
+                        slug=slugify(serializer.validated_data['name']))
 
     
     

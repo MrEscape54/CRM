@@ -5,6 +5,7 @@ from .models import Account, ParentAccount
 class AccountSerializer(serializers.ModelSerializer):
 
     created_by = serializers.ReadOnlyField(source='created_by.username')
+    slug = serializers.ReadOnlyField()
 
     class Meta:
         model = Account
@@ -12,7 +13,7 @@ class AccountSerializer(serializers.ModelSerializer):
             'name', 
             'country', 
             'industry', 
-            'parent_company', 
+            'parent_account', 
             'status', 
             'address', 
             'website', 
