@@ -1,9 +1,9 @@
 from django import forms
-from .models import Account, ParentCompany, User
+from .models import Account, ParentAccount, User
 
 class ParentForm(forms.ModelForm):
     class Meta:
-        model = ParentCompany
+        model = ParentAccount
         fields = ('name', 'category', 'is_active')
 
 class AccountForm(forms.ModelForm):

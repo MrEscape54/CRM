@@ -1,8 +1,15 @@
-from accounts.models import Account
+import re
+from accounts.models import Account, ParentAccount
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from rest_framework import serializers, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import mixins, generics
+from .serializers import AccountSerializer, ParentAccountSerializer
 
 from accounts.forms import ParentForm, AccountForm
 
@@ -88,3 +95,26 @@ def account_detail(request, account_slug):
                }
 
     return render(request, "accounts/account_detail.html", context)
+
+
+
+#API Views
+class AccountList(generics.ListCreateAPIView):
+    queryset = Account.active.all()
+    serializer_class = AccountSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+        
+
+class ParentAccountList(generics.ListCreateAPIView):
+    queryset = ParentAccount.active.all()
+    serializer_class = ParentAccountSerializer
+
+    def perform_create(self, serializer):
+
+        serializer.save(created_by=self.request.user)
+
+    
+    

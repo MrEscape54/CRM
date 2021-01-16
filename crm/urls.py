@@ -3,11 +3,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
     path('tinymce/', include('tinymce.urls')),
 
     #Apps
@@ -16,6 +14,15 @@ urlpatterns = [
     path('contacts/', include('contacts.urls')),
     path('opportunities/', include('opportunities.urls')),
     path('tasks/', include('tasks.urls')),
+
+
+    #APIs
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('accounts.api_urls')),
+
+    #path('api/', include('accounts.api_urls'), include('contacts.urls')),
+
+
 ]
 
 if settings.DEBUG:

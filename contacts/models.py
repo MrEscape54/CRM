@@ -14,7 +14,7 @@ class Contact(models.Model):
     first_name = models.CharField(_("First name"), max_length=255, help_text='Required')
     last_name = models.CharField(_("Last name"), max_length=255, help_text='Required')
     location = models.CharField(_("Location"), max_length=30, choices=utils.COUNTRIES, help_text='Required')
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     email = models.EmailField(unique=True,help_text='Required')
     phone = PhoneNumberField(blank=True, null=True)
     source = models.CharField(_("Source"), max_length=20, choices=utils.CONTACT_SOURCE, default="Account Contact")

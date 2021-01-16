@@ -21,7 +21,7 @@ class Technology(models.Model):
 class Opportunity(models.Model):
     name = models.CharField(pgettext_lazy("Name of Opportunity", "Name"), max_length=64)
     account = models.ForeignKey(Account, related_name="account_opportunities", on_delete=models.CASCADE)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     stage = models.CharField(pgettext_lazy("Stage of Opportunity", "Stage"), max_length=64, choices=OPP_STAGES)
     source = models.CharField(pgettext_lazy("Source of Opportunity", "Source"), max_length=64, choices=OPP_SOURCE)
     priority = models.CharField(_("Priority"), max_length=10, choices=OPP_PRIORITY)
