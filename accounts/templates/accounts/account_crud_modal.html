@@ -48,8 +48,8 @@
                 </div>
 
                 <div class="five wide required field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.parent_company.id_for_label }}">{{ account_form.parent_company.label }}</label>
-                    {% render_field account_form.parent_company class="ui fluid search selection dropdown"%}
+                    <label for="{{ account_form.parent_account.id_for_label }}">{{ account_form.parent_account.label }}</label>
+                    {% render_field account_form.parent_account class="ui fluid search selection dropdown"%}
                 </div>
                 {% if modal_account_title == "New Account" %}
                   <div class="one wide field plus-icon">
@@ -173,7 +173,7 @@ $(document).ready(function(){
       'account-name'     : 'empty',
       'account-country'     : 'empty',
       'account-industry'     : 'empty',
-      'account-parent_company'     : 'empty',
+      'account-parent_account'     : 'empty',
       'account-assigned_to'     : 'empty',
       }
     });

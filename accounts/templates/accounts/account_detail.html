@@ -1,6 +1,8 @@
 {% extends 'base.html' %} 
 {% load static %}
 
+{% block title %}Accounts{% endblock title %}
+
 {% block content %}
 
 {% if account_form.errors %} 
@@ -60,7 +62,7 @@
       </tr>
       <tr>
         <td><b>Parent Account:</b></td>
-        <td>{{account.parent_company}}</td>
+        <td>{{account.parent_account}}</td>
       </tr>
       <tr>
         <td><b>Country:</b></td>

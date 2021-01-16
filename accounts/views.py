@@ -67,7 +67,7 @@ def account_detail(request, account_slug):
     if request.method == 'POST':
         # Instantiate both Account and Parent forms
         account_form = AccountForm(request.POST or None, instance = account, prefix='account') 
-        parent_form = ParentForm(request.POST or None, instance = account.parent_company, prefix='parent')
+        parent_form = ParentForm(request.POST or None, instance = account.parent_account, prefix='parent')
 
         # if submit is triggered by Account form
         if request.POST.get("form_type") == 'form_account':
@@ -84,7 +84,7 @@ def account_detail(request, account_slug):
                 return redirect(account)
     else: 
         account_form = AccountForm(request.POST or None, instance = account, prefix='account')
-        parent_form = ParentForm(request.POST or None, instance = account.parent_company, prefix='parent')
+        parent_form = ParentForm(request.POST or None, instance = account.parent_account, prefix='parent')
 
     context = {'account': account, 
                'active': "accounts", 
