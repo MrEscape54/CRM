@@ -1,96 +1,89 @@
-{% load widget_tweaks %}
-
-
-{% comment %} FIRST MODAL IS SHOWN TO CREATE AN ACCOUNT{% endcomment %}
+{% load widget_tweaks %} {% comment %} FIRST MODAL IS SHOWN TO CREATE AN ACCOUNT{% endcomment %}
 <div class="ui modal coupled account_create">
-  <div class="header">
-    <i class="building middle aligned icon"></i> {{modal_account_title}}
-  </div>
-  
-    <div class="content">
+  <div class="header"><i class="building middle aligned icon"></i> {{modal_account_title}}</div>
 
-        <form class="ui form {% if field.errors %} error{% endif %}" id="account" action="" method="post" novalidate>
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="form_account">
-            {% for hidden_field in account_form.hidden_fields %}
-                {{ hidden_field }}
-            {% endfor %}
+  <div class="content">
+    <form
+      class="ui form {% if field.errors %} error{% endif %}" id="account" action="" method="post" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="form_account" />
+      {% for hidden_field in account_form.hidden_fields %} 
+        {{ hidden_field }} 
+      {% endfor %}
 
-            <div class="fields">
-                <div class="five wide required field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.name.id_for_label }}">{{ account_form.name.label }}</label>
-                    {% render_field account_form.name placeholder=account_form.name.label%}
+      <div class="fields">
+        <div class="five wide required field {% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.name.id_for_label }}">{{ account_form.name.label }}</label>
+          {% render_field account_form.name placeholder=account_form.name.label%}
+        </div>
+        <div class="four wide required field {% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.country.id_for_label }}">{{ account_form.country.label }}</label>
+          {% render_field account_form.country class="ui fluid search selection dropdown"%}
+        </div>
 
-                </div>
-                <div class="four wide required field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.country.id_for_label }}">{{ account_form.country.label }}</label>
-                    {% render_field account_form.country class="ui fluid search selection dropdown"%}
-                </div>
-                <div class="four wide required field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.industry.id_for_label }}">{{ account_form.industry.label }}</label>
-                    {% render_field account_form.industry class="ui selection dropdown"%}
-                </div>
-                <div class="three wide required field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.status.id_for_label }}">{{ account_form.status.label }}</label>
-                    {% render_field account_form.status class="ui selection dropdown"%}
-                </div>
-            </div>
+        <div class="four wide required field {% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.industry.id_for_label }}">{{ account_form.industry.label }}</label>
+          {% render_field account_form.industry class="ui selection dropdown"%}
+        </div>
+        <div class="three wide required field {% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.status.id_for_label }}">{{ account_form.status.label }}</label>
+          {% render_field account_form.status class="ui selection dropdown"%}
+        </div>
+      </div>
 
-            <div class="fields">
-                <div class="five wide field">
-                    <label for="{{ account_form.address.id_for_label }}">{{ account_form.address.label }}</label>
-                    {% render_field account_form.address placeholder=account_form.address.label%}
-                </div>
+      <div class="fields">
+        <div class="five wide field">
+          <label for="{{ account_form.address.id_for_label }}">{{ account_form.address.label }}</label>
+          {% render_field account_form.address placeholder=account_form.address.label%}
+        </div>
 
-                <div class="four wide field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.website.id_for_label }}">{{ account_form.website.label }}</label>
-                    {% render_field account_form.website placeholder=account_form.website.label%}
-                </div>
+        <div class="four wide field {% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.website.id_for_label }}">{{ account_form.website.label }}</label>
+          {% render_field account_form.website placeholder=account_form.website.label%}
+        </div>
 
-                <div class="five wide required field {% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.parent_account.id_for_label }}">{{ account_form.parent_account.label }}</label>
-                    {% render_field account_form.parent_account class="ui fluid search selection dropdown"%}
-                </div>
-                {% if modal_account_title == "New Account" %}
-                  <div class="one wide field plus-icon">
-                      <i class="plus green icon"></i>
-                  </div>
-                {% else %}
-                  <div class="one wide field plus-icon">
-                    <i class="pencil alternate green icon"></i>
-                </div>
-                {% endif %}
-            </div>
+        <div class="five wide required field {% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.parent_account.id_for_label }}">{{ account_form.parent_account.label }}</label>
+          {% render_field account_form.parent_account class="ui fluid search selection dropdown"%}
+        </div>
+        {% if modal_account_title == "New Account" %}
+        <div class="one wide field plus-icon">
+          <i class="plus green icon"></i>
+        </div>
+        {% else %}
+        <div class="one wide field plus-icon">
+          <i class="pencil alternate green icon"></i>
+        </div>
+        {% endif %}
+      </div>
 
-            <div class="fields">
-              <div class="five wide required {% if not request.user.is_staff %} disabled {% endif %}field{% if field.errors %} error{% endif %}">
-                    <label for="{{ account_form.assigned_to.id_for_label }}">{{ account_form.assigned_to.label }}</label>
-                    {% render_field account_form.assigned_to class="ui fluid search selection dropdown"%}
-              </div>
+      <div class="fields">
+        <div class="five wide required {% if not request.user.is_staff %} disabled {% endif %}field{% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.assigned_to.id_for_label }}">{{ account_form.assigned_to.label }}</label>
+          {% render_field account_form.assigned_to class="ui fluid search selection dropdown"%}
+        </div>
 
-              <div class="eleven wide field">
-                    <label for="{{ account_form.contacts.id_for_label }}">{{ account_form.contacts.label }}</label>
-                    {% render_field account_form.contacts class="ui fluid multiple search selection dropdown"%}
-              </div>
-            </div>
-          
-            <div class="field">
-                    <label for="{{ account_form.description.id_for_label }}">{{ account_form.description.label }}</label>
-                    {% render_field account_form.description placeholder=account_form.description.label rows=2 %}
-            </div>
+        <div class="eleven wide field">
+          <label for="{{ account_form.contacts.id_for_label }}">{{ account_form.contacts.label }}</label>
+          {% render_field account_form.contacts class="ui fluid multiple search selection dropdown"%}
+        </div>
+      </div>
 
-            <div class="inline field">
-              <div class="ui toggle checkbox">
-                {% render_field account_form.is_active%}
-                <label for="{{ account_form.is_active.id_for_label }}">{{ account_form.is_active.label }}</label>
-              </div>
-            </div>
-          <button id="account_submit"  style="display:none" type="submit"></button>
-          <div class="ui error message"></div>
-        </form>
+      <div class="field">
+        <label for="{{ account_form.description.id_for_label }}">{{ account_form.description.label }}</label>
+        {% render_field account_form.description placeholder=account_form.description.label rows=2 %}
+      </div>
+
+      <div class="inline field">
+        <div class="ui toggle checkbox">
+          {% render_field account_form.is_active%}
+          <label for="{{ account_form.is_active.id_for_label }}">{{ account_form.is_active.label }}</label>
+        </div>
+      </div>
+      <div class="ui error message"></div>
+    </form>
   </div>
 
-{% comment %} SECOND MODAL IS SHOWN TO CREATE A PARENT ACCOUNT{% endcomment %}  
   <div class="actions">
     <div class="ui red deny button">Cancel</div>
     <div class="ui approve positive right labeled icon button">
@@ -99,37 +92,32 @@
   </div>
 </div>
 
+{% comment %} SECOND MODAL IS SHOWN TO CREATE A PARENT ACCOUNT{% endcomment %}
 <div class="ui mini modal coupled parent_create">
-  <div class="header">
-    <i class="sitemap middle aligned icon"></i> {{modal_parent_title}}
-  </div>
+  <div class="header"><i class="sitemap middle aligned icon"></i> {{modal_parent_title}}</div>
   <div class="content">
-
-        <form class="ui form" id="parent" action="" method="post" novalidate>
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="form_parent">
-            {% for hidden_field in parent_form.hidden_fields %}
-                {{ hidden_field }}
-            {% endfor %}
-            <div class="fields">
-              <div class="ten wide required field">
-                  <label for="{{ parent_form.name.id_for_label }}">{{ parent_form.name.label }}</label>
-                  {% render_field parent_form.name placeholder=parent_form.name.label%}
-              </div>
-              <div class="six wide required field">
-                  <label for="{{ parent_form.category.id_for_label }}">{{ parent_form.category.label }}</label>
-                  {% render_field parent_form.category class="ui selection dropdown"%}
-              </div>
-            </div>
-            <div class="inline field">
-              <div class="ui toggle checkbox">
-                {% render_field parent_form.is_active%}
-                <label for="{{ parent_form.is_active.id_for_label }}">{{ parent_form.is_active.label }}</label>
-              </div>
-            </div>
-          <button id="parent_submit"  style="display:none" type="submit"></button>
-          <div class="ui error message"></div>
-        </form>
+    <form class="ui form" id="parent" action="" method="post" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="form_parent" />
+      {% for hidden_field in parent_form.hidden_fields %} {{ hidden_field }} {% endfor %}
+      <div class="fields">
+        <div class="ten wide required field">
+          <label for="{{ parent_form.name.id_for_label }}">{{ parent_form.name.label }}</label>
+          {% render_field parent_form.name placeholder=parent_form.name.label%}
+        </div>
+        <div class="six wide required field">
+          <label for="{{ parent_form.category.id_for_label }}">{{ parent_form.category.label }}</label>
+          {% render_field parent_form.category class="ui selection dropdown"%}
+        </div>
+      </div>
+      <div class="inline field">
+        <div class="ui toggle checkbox">
+          {% render_field parent_form.is_active%}
+          <label for="{{ parent_form.is_active.id_for_label }}">{{ parent_form.is_active.label }}</label>
+        </div>
+      </div>
+      <div class="ui error message"></div>
+    </form>
   </div>
   <div class="actions">
     <div class="ui red deny button type">Cancel</div>
@@ -140,51 +128,51 @@
 </div>
 
 <script>
-$(document).ready(function(){
-  document.querySelector("#modal_create").onclick = function () {
-    $(".coupled").modal({
-      allowMultiple: true
-    });
-    // open second modal on first modal buttons
-    $(".parent_create").modal("attach events", ".account_create .plus-icon").modal({
-        onDeny    : function(){
-          $('.parent_create').hide();
-        },
-        onApprove : function() {
-          $('#parent_submit').click();
-          return false
-        }
-      })
-    // show first immediately
-    $(".account_create").modal({
-        onDeny    : function(){
-          $('.account_create').hide();
-        },
-        onApprove : function() {
-          $('#account_submit').click();
-          return false
-        }
-      })
-      .modal('show');
-  };
-  $('#account')
-  .form({
-    fields: {
-      'account-name'     : 'empty',
-      'account-country'     : 'empty',
-      'account-industry'     : 'empty',
-      'account-parent_account'     : 'empty',
-      'account-assigned_to'     : 'empty',
-      }
+  $(document).ready(function () {
+    document.querySelector("#modal_create").onclick = function () {
+      $(".coupled").modal({
+        allowMultiple: true,
+      });
+      // open second modal on first modal buttons
+      $(".parent_create")
+        .modal("attach events", ".account_create .plus-icon")
+        .modal({
+          onDeny: function () {
+            $(".parent_create").hide();
+          },
+          onApprove: function () {
+            $("#parent").submit();
+            return false;
+          },
+        });
+      // show first immediately
+      $(".account_create")
+        .modal({
+          onDeny: function () {
+            $(".account_create").hide();
+          },
+          onApprove: function () {
+            $("#account").submit();
+            return false;
+          },
+        })
+        .modal("show");
+    };
+    $("#account").form({
+      fields: {
+        "account-name": "empty",
+        "account-country": "empty",
+        "account-industry": "empty",
+        "account-parent_account": "empty",
+        "account-assigned_to": "empty",
+      },
     });
 
-  $('#parent')
-  .form({
-    fields: {
-      'parent-name'     : 'empty',
-      'parent-category'     : 'empty',
-      }
+    $("#parent").form({
+      fields: {
+        "parent-name": "empty",
+        "parent-category": "empty",
+      },
     });
-});
-
+  });
 </script>

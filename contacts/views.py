@@ -4,6 +4,9 @@ from django.utils.text import slugify
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from rest_framework import generics
+from .serializers import ContactSerializer
+
 from .forms import ContactForm
 
 @login_required
@@ -55,3 +58,12 @@ def contact_detail(request, contact_slug):
                }
 
     return render(request, "contacts/contact_detail.html", context)
+
+#API Views
+class ContactList(generics.ListCreateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user, 
+                        slug=slugify(serializer.validated_data['name']))

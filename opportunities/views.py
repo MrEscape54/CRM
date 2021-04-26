@@ -1,9 +1,12 @@
 import datetime
-from .models import Opportunity
+from .models import Opportunity, Technology
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from rest_framework import generics
+from .serializers import OpportunitySerializer, TechnologySerializer
 
 from .forms import OpportunityForm, TechnologyForm
 
@@ -118,3 +121,23 @@ def lost(request, opp_slug):
         messages.success(request, ('Opportunity has been updated successfully'))
 
     return redirect(opportunity)
+
+
+#API Views
+class OpportunityList(generics.ListCreateAPIView):
+    queryset = Opportunity.objects.all()
+    serializer_class = OpportunitySerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user, 
+                        slug=slugify(serializer.validated_data['name']))
+
+        
+class TechnologyList(generics.ListCreateAPIView):
+    queryset = Technology.objects.all()
+    serializer_class = TechnologySerializer
+
+    def perform_create(self, serializer):
+
+        serializer.save(created_by=self.request.user, 
+                        slug=slugify(serializer.validated_data['name']))

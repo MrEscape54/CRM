@@ -16,7 +16,3 @@ class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ('name', 'country', 'industry', 'parent_account', 'status', 'address', 'website', 'description', 'is_active', 'contacts', 'assigned_to')
-
-        widgets = {
-            'created_by' : forms.HiddenInput(),
-        }

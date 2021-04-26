@@ -11,7 +11,12 @@ class HomeView(TemplateView):
 def api_root(request, format=None):
     return Response({
         'accounts': reverse('account-list', request=request, format=format),
-        'parent-accounts': reverse('parent-account-list', request=request, format=format)
+        'parent-accounts': reverse('parent-account-list', request=request, format=format),
+        'contacts': reverse('contact-list', request=request, format=format),
+        'opportunities': reverse('opp-list', request=request, format=format),
+        'technologies': reverse('tech-list', request=request, format=format),
+
+        
 
         #TODO: Add the rest of api_urls
     })
