@@ -3,10 +3,9 @@
   <div class="header"><i class="building middle aligned icon"></i> {{modal_account_title}}</div>
 
   <div class="content">
-    <form
-      class="ui form {% if field.errors %} error{% endif %}" id="account" action="" method="post" novalidate>
+    <form class="ui form {% if field.errors %} error{% endif %}" id="account" action="" method="post" novalidate>
       {% csrf_token %}
-      <input type="hidden" name="form_type" value="form_account" />
+      {% comment %} <input type="hidden" name="form_type" value="form_account" /> {% endcomment %}
       {% for hidden_field in account_form.hidden_fields %} 
         {{ hidden_field }} 
       {% endfor %}
@@ -96,10 +95,12 @@
 <div class="ui mini modal coupled parent_create">
   <div class="header"><i class="sitemap middle aligned icon"></i> {{modal_parent_title}}</div>
   <div class="content">
-    <form class="ui form" id="parent" action="" method="post" novalidate>
+    <form class="ui form" id="parent" action="" method="post">
       {% csrf_token %}
-      <input type="hidden" name="form_type" value="form_parent" />
-      {% for hidden_field in parent_form.hidden_fields %} {{ hidden_field }} {% endfor %}
+      {% comment %} <input type="hidden" name="form_type" value="form_parent" /> {% endcomment %}
+      {% for hidden_field in parent_form.hidden_fields %} 
+        {{ hidden_field }} 
+      {% endfor %}
       <div class="fields">
         <div class="ten wide required field">
           <label for="{{ parent_form.name.id_for_label }}">{{ parent_form.name.label }}</label>
@@ -121,9 +122,7 @@
   </div>
   <div class="actions">
     <div class="ui red deny button type">Cancel</div>
-    <div class="ui approve positive right labeled icon button">
-      Save<i class="checkmark icon"></i>
-    </div>
+    <div class="ui approve positive right labeled icon button">Save<i class="checkmark icon"></i></div>
   </div>
 </div>
 
@@ -133,7 +132,7 @@
       $(".coupled").modal({
         allowMultiple: true,
       });
-      // open second modal on first modal buttons
+      // open second modal if "+" button is clicked
       $(".parent_create")
         .modal("attach events", ".account_create .plus-icon")
         .modal({
@@ -145,6 +144,11 @@
             return false;
           },
         });
+
+      
+
+
+      
       // show first immediately
       $(".account_create")
         .modal({
@@ -152,12 +156,18 @@
             $(".account_create").hide();
           },
           onApprove: function () {
-            $("#account").submit();
+            //$("#account").submit();
             return false;
           },
         })
         .modal("show");
     };
+
+    document.getElementById('parent').onsbmit = () => {
+      console.log('cocha')
+    }
+
+    //Account form validation
     $("#account").form({
       fields: {
         "account-name": "empty",
@@ -168,6 +178,7 @@
       },
     });
 
+    //Parent form validation
     $("#parent").form({
       fields: {
         "parent-name": "empty",
