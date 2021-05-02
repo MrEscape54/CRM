@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields import CharField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from core.models import User

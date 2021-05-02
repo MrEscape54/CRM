@@ -8,7 +8,7 @@ from accounts.serializers import AccountSerializer, ParentAccountSerializer
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    permission_classes = [permissions.DjangoModelPermissions]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, 
@@ -18,7 +18,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 class ParentAccountViewSet(viewsets.ModelViewSet):
     queryset = ParentAccount.objects.all()
     serializer_class = ParentAccountSerializer
-    permission_classes = [permissions.DjangoModelPermissions]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
 

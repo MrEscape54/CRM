@@ -26,7 +26,8 @@ class ParentAccount(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name_plural = 'Parent Conmpanies'
+        verbose_name = 'Parent Account'
+        verbose_name_plural = 'Parent Accounts'
 
 
     objects = models.Manager() # The default manager.

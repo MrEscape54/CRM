@@ -5,8 +5,8 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register('account', views.AccountViewSet)
-router.register('parent-account', views.ParentAccountViewSet)
+router.register('accounts', views.AccountViewSet)
+router.register('parents', views.ParentAccountViewSet)
 
 
 urlpatterns = [

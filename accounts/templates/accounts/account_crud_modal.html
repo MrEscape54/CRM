@@ -5,7 +5,6 @@
   <div class="content">
     <form class="ui form {% if field.errors %} error{% endif %}" id="account" action="" method="post" novalidate>
       {% csrf_token %}
-      {% comment %} <input type="hidden" name="form_type" value="form_account" /> {% endcomment %}
       {% for hidden_field in account_form.hidden_fields %} 
         {{ hidden_field }} 
       {% endfor %}
@@ -97,7 +96,6 @@
   <div class="content">
     <form class="ui form" id="parent" action="" method="post">
       {% csrf_token %}
-      {% comment %} <input type="hidden" name="form_type" value="form_parent" /> {% endcomment %}
       {% for hidden_field in parent_form.hidden_fields %} 
         {{ hidden_field }} 
       {% endfor %}
@@ -129,43 +127,110 @@
 <script>
   $(document).ready(function () {
     document.querySelector("#modal_create").onclick = function () {
-      $(".coupled").modal({
-        allowMultiple: true,
+      
+
+    $(".coupled").modal({
+      allowMultiple: true,
+    });
+    // open second modal if "+" button is clicked
+    $(".parent_create")
+      .modal("attach events", ".account_create .plus-icon")
+      .modal({
+        onDeny: function () {
+          $(".parent_create").hide();
+        },
+        onApprove: function () {
+          eMessage.style.removeProperty('display');
+          $("#parent").submit();
+          return false;
+        },
       });
-      // open second modal if "+" button is clicked
-      $(".parent_create")
-        .modal("attach events", ".account_create .plus-icon")
-        .modal({
-          onDeny: function () {
-            $(".parent_create").hide();
-          },
-          onApprove: function () {
-            $("#parent").submit();
-            return false;
-          },
-        });
 
-      
+    // Div error for parent form
+    const eMessage = document.querySelectorAll('.error.message')[1];
+    eMessage.innerHTML == "";
+  
+ 
+    // Submit parent form
+    document.getElementById('parent').onsubmit = function() {
+      const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+      const category = document.getElementById('id_parent-category');
+      const categoryValue = category.options[category.selectedIndex].text;
 
+      if (window.getComputedStyle(eMessage).display === "none") {
 
-      
-      // show first immediately
-      $(".account_create")
-        .modal({
-          onDeny: function () {
-            $(".account_create").hide();
+        fetch("/api/parents/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken,
           },
-          onApprove: function () {
-            //$("#account").submit();
-            return false;
-          },
+
+          body: JSON.stringify({
+            name: document.getElementById('id_parent-name').value,
+            category: categoryValue,
+            is_active: document.getElementById('id_parent-is_active').checked,
+            credentials: "same-origin",
+          }),
         })
-        .modal("show");
-    };
+        .then((response) => {      
+          if (response.ok) {
+            return response.json()
+            .then((result) => {          
+              const option = document.createElement("option");
+              option.text = result.name;
+              option.value = result.id;
+              option.selected = true;
+              
 
-    document.getElementById('parent').onsbmit = () => {
-      console.log('cocha')
-    }
+              const drop = document.getElementById('id_account-parent_account');
+              drop.add(option);
+              document.querySelector('.ui.mini.modal').classList.remove('transition', 'visible', 'active');
+              document.querySelector('.ui.mini.modal').style.display = 'none';
+            });
+          }    
+          else {
+            return response.json()
+            .then((result) => {    
+              eMessage.innerHTML = '';
+              const errorList = document.createElement('ul');
+              eMessage.appendChild(errorList);
+              const error = document.createElement('li');
+              if (result.name) {
+                
+                error.innerHTML = result.name[0];
+                errorList.classList.add('list');
+                errorList.appendChild(error);
+                eMessage.style.setProperty('display', 'block');
+              }
+            });
+          }
+        })
+      };
+      return false;
+     } 
+    
+
+    // show first immediately
+    $(".account_create")
+      .modal({
+        onDeny: function () {
+          $(".account_create").hide();
+        },
+        onApprove: function () {
+          $("#account").submit();
+          return false;
+        },
+      })
+      .modal("show");
+
+    //Parent form validation
+    $("#parent").form({
+      fields: {
+        "parent-name": "empty",
+        "parent-category": "empty",
+      },
+    });
 
     //Account form validation
     $("#account").form({
@@ -177,13 +242,7 @@
         "account-assigned_to": "empty",
       },
     });
+  };
+});
 
-    //Parent form validation
-    $("#parent").form({
-      fields: {
-        "parent-name": "empty",
-        "parent-category": "empty",
-      },
-    });
-  });
 </script>

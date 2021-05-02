@@ -30,4 +30,4 @@ class ParentAccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ParentAccount
-        fields = ['id', 'name', 'slug', 'created_by']
+        fields = ['id', 'name', 'category', 'slug', 'created_by']
