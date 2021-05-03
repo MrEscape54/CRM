@@ -20,6 +20,7 @@ def contact_list(request):
             new_contact.slug = slugify(new_contact)
             new_contact.created_by = request.user
             new_contact.save()
+            contact_form.save_m2m()
             messages.success(request, ('Contact has been created successfully'))
             return redirect('contacts:index')
     
