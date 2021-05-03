@@ -66,6 +66,7 @@ class Account(models.Model):
 
     class Meta:
         ordering = ["status"]
+        verbose_name = 'Account'
 
     objects = models.Manager() # The default manager.
     active = ActiveAccountsManager() # Custom manager.

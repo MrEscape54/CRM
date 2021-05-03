@@ -12,6 +12,10 @@ def account_list(request):
     account_form = AccountForm(initial={'assigned_to': request.user}, prefix='account')
     parent_form = ParentForm(prefix='parent')
 
+    if request.method == 'POST':
+        messages.success(request, ('Account has been created successfully'))
+
+
     context = {'accounts': accounts, 
                'active': "accounts", 
                'account_form': account_form, 
