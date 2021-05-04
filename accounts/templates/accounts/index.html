@@ -41,9 +41,10 @@
 
 <h1><i class="building right icon"></i> Accounts</h1>
  <button class="ui teal button" id="modal_create"><i class="plus icon"></i>Add a new Account</button>
-  <br>
+<br>
 
-  {% include 'accounts/account_crud_modal.html' %}
+{% comment %} Modal to create Account/Parent account {% endcomment %}
+{% include 'accounts/account_crud_modal.html' %}
 
 
 {% regroup accounts by status as status_list %}
@@ -95,6 +96,7 @@
               </td>
             </tr>
             
+            {% comment %} Modal for each row to detailed info {% endcomment %}
             {% include 'accounts/account_detail _modal.html' %}
 
             {% endfor %}
@@ -112,6 +114,8 @@
 
 {% block javascript %}
 
-  <script src="{% static 'global/global.js' %}"></script>  
+  <script src="{% static 'global/global.js' %}"></script>
+  <script src="{% static 'accounts/js/accountCreate.js' %}"></script>  
+
 
 {% endblock javascript %}

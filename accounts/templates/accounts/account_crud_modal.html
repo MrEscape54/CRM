@@ -1,17 +1,14 @@
+{% load static %}
 {% load widget_tweaks %} {% comment %} FIRST MODAL IS SHOWN TO CREATE AN ACCOUNT{% endcomment %}
 <div class="ui modal coupled account_create">
   <div class="header"><i class="building middle aligned icon"></i> {{modal_account_title}}</div>
 
   <div class="content">
-    <form
-      class="ui form {% if field.errors %} error{% endif %}"
-      id="account"
-      action=""
-      method="post"
-      novalidate
-    >
-      {% csrf_token %} {% for hidden_field in account_form.hidden_fields %} {{ hidden_field }} {%
-      endfor %}
+    <form class="ui form {% if field.errors %} error{% endif %}" id="account" data-account="{{account.id}}" action="" method="post" novalidate>
+      {% csrf_token %} 
+      {% for hidden_field in account_form.hidden_fields %} 
+        {{ hidden_field }} 
+      {% endfor %}
 
       <div class="fields">
         <div class="five wide required field {% if field.errors %} error{% endif %}">
@@ -19,45 +16,33 @@
           {% render_field account_form.name placeholder=account_form.name.label%}
         </div>
         <div class="four wide required field {% if field.errors %} error{% endif %}">
-          <label for="{{ account_form.country.id_for_label }}"
-            >{{ account_form.country.label }}</label
-          >
+          <label for="{{ account_form.country.id_for_label }}">{{ account_form.country.label }}</label>
           {% render_field account_form.country class="ui fluid search selection dropdown"%}
         </div>
 
         <div class="four wide required field {% if field.errors %} error{% endif %}">
-          <label for="{{ account_form.industry.id_for_label }}"
-            >{{ account_form.industry.label }}</label
-          >
+          <label for="{{ account_form.industry.id_for_label }}">{{ account_form.industry.label }}</label>
           {% render_field account_form.industry class="ui selection dropdown"%}
         </div>
         <div class="three wide required field {% if field.errors %} error{% endif %}">
-          <label for="{{ account_form.status.id_for_label }}"
-            >{{ account_form.status.label }}</label
-          >
+          <label for="{{ account_form.status.id_for_label }}">{{ account_form.status.label }}</label>
           {% render_field account_form.status class="ui selection dropdown"%}
         </div>
       </div>
 
       <div class="fields">
         <div class="five wide field">
-          <label for="{{ account_form.address.id_for_label }}"
-            >{{ account_form.address.label }}</label
-          >
+          <label for="{{ account_form.address.id_for_label }}">{{ account_form.address.label }}</label>
           {% render_field account_form.address placeholder=account_form.address.label%}
         </div>
 
         <div class="four wide field {% if field.errors %} error{% endif %}">
-          <label for="{{ account_form.website.id_for_label }}"
-            >{{ account_form.website.label }}</label
-          >
+          <label for="{{ account_form.website.id_for_label }}">{{ account_form.website.label }}</label>
           {% render_field account_form.website placeholder=account_form.website.label%}
         </div>
 
         <div class="five wide required field {% if field.errors %} error{% endif %}">
-          <label for="{{ account_form.parent_account.id_for_label }}"
-            >{{ account_form.parent_account.label }}</label
-          >
+          <label for="{{ account_form.parent_account.id_for_label }}">{{ account_form.parent_account.label }}</label>
           {% render_field account_form.parent_account class="ui fluid search selection dropdown"%}
         </div>
         {% if modal_account_title == "New Account" %}
@@ -72,38 +57,26 @@
       </div>
 
       <div class="fields">
-        <div
-          class="five wide required {% if not request.user.is_staff %} disabled {% endif %}field{% if field.errors %} error{% endif %}"
-        >
-          <label for="{{ account_form.assigned_to.id_for_label }}"
-            >{{ account_form.assigned_to.label }}</label
-          >
+        <div class="five wide required {% if not request.user.is_staff %} disabled {% endif %}field{% if field.errors %} error{% endif %}">
+          <label for="{{ account_form.assigned_to.id_for_label }}">{{ account_form.assigned_to.label }}</label>
           {% render_field account_form.assigned_to class="ui fluid search selection dropdown"%}
         </div>
 
         <div class="eleven wide field">
-          <label for="{{ account_form.contacts.id_for_label }}"
-            >{{ account_form.contacts.label }}</label
-          >
-          {% render_field account_form.contacts class="ui fluid multiple search selection
-          dropdown"%}
+          <label for="{{ account_form.contacts.id_for_label }}">{{ account_form.contacts.label }}</label>
+          {% render_field account_form.contacts class="ui fluid multiple search selection dropdown"%}
         </div>
       </div>
 
       <div class="field">
-        <label for="{{ account_form.description.id_for_label }}"
-          >{{ account_form.description.label }}</label
-        >
-        {% render_field account_form.description placeholder=account_form.description.label rows=2
-        %}
+        <label for="{{ account_form.description.id_for_label }}">{{ account_form.description.label }}</label>
+        {% render_field account_form.description placeholder=account_form.description.label rows=2 %}
       </div>
 
       <div class="inline field">
         <div class="ui toggle checkbox">
           {% render_field account_form.is_active%}
-          <label for="{{ account_form.is_active.id_for_label }}"
-            >{{ account_form.is_active.label }}</label
-          >
+          <label for="{{ account_form.is_active.id_for_label }}">{{ account_form.is_active.label }}</label>
         </div>
       </div>
       <div class="ui error message"></div>
@@ -122,27 +95,23 @@
 <div class="ui mini modal coupled parent_create">
   <div class="header"><i class="sitemap middle aligned icon"></i> {{modal_parent_title}}</div>
   <div class="content">
-    <form class="ui form" id="parent" action="" method="post">
-      {% csrf_token %} {% for hidden_field in parent_form.hidden_fields %} {{ hidden_field }} {%
-      endfor %}
+    <form class="ui form" id="parent" data-parent="{{account.parent_account.id}}" action="" method="post">
+      {% csrf_token %} {% for hidden_field in parent_form.hidden_fields %} {{ hidden_field }} 
+    {% endfor %}
       <div class="fields">
         <div class="ten wide required field">
           <label for="{{ parent_form.name.id_for_label }}">{{ parent_form.name.label }}</label>
           {% render_field parent_form.name placeholder=parent_form.name.label%}
         </div>
         <div class="six wide required field">
-          <label for="{{ parent_form.category.id_for_label }}"
-            >{{ parent_form.category.label }}</label
-          >
+          <label for="{{ parent_form.category.id_for_label }}">{{ parent_form.category.label }}</label>
           {% render_field parent_form.category class="ui selection dropdown"%}
         </div>
       </div>
       <div class="inline field">
         <div class="ui toggle checkbox">
           {% render_field parent_form.is_active%}
-          <label for="{{ parent_form.is_active.id_for_label }}"
-            >{{ parent_form.is_active.label }}</label
-          >
+          <label for="{{ parent_form.is_active.id_for_label }}">{{ parent_form.is_active.label }}</label>
         </div>
       </div>
       <div class="ui error message"></div>
@@ -155,176 +124,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function () {
-    document.querySelector("#modal_create").onclick = function () {
-      $(".coupled").modal({
-        allowMultiple: true,
-      });
-      // open second modal if "+" button is clicked
-      $(".parent_create")
-        .modal("attach events", ".account_create .plus-icon")
-        .modal({
-          onDeny: function () {
-            $(".parent_create").hide();
-          },
-          onApprove: function () {
-            errorMessageParent.style.removeProperty("display");
-            $("#parent").submit();
-            return false;
-          },
-        });
-
-      // Div for error messages
-      const errorMessageParent = document.querySelectorAll(".error.message")[1];
-      errorMessageParent.innerHTML == "";
-
-      const errorMessageAccount = document.querySelectorAll(".error.message")[0];
-      errorMessageAccount.innerHTML == "";
-
-      const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-
-      // Submit parent form
-      document.getElementById("parent").onsubmit = function () {
-        const category = document.getElementById("id_parent-category");
-        const categoryValue = category.options[category.selectedIndex].text;
-
-        if (window.getComputedStyle(errorMessageParent).display === "none") {
-          fetch("/api/parents/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": csrftoken,
-            },
-
-            body: JSON.stringify({
-              name: document.getElementById("id_parent-name").value,
-              category: categoryValue,
-              is_active: document.getElementById("id_parent-is_active").checked,
-              credentials: "same-origin",
-            }),
-          }).then(response => {
-            if (response.ok) {
-              return response.json().then(result => {
-                const option = document.createElement("option");
-                option.text = result.name;
-                option.value = result.id;
-                option.selected = true;
-
-                const drop = document.getElementById("id_account-parent_account");
-                drop.add(option);
-                document
-                  .querySelector(".ui.mini.modal")
-                  .classList.remove("transition", "visible", "active");
-                document.querySelector(".ui.mini.modal").style.display = "none";
-              });
-            } else {
-              return response.json().then(result => {
-                errorMessageParent.innerHTML = "";
-                const errorList = document.createElement("ul");
-                errorMessageParent.appendChild(errorList);
-                const error = document.createElement("li");
-                if (result.name) {
-                  error.innerHTML = result.name[0];
-                  errorList.classList.add("list");
-                  errorList.appendChild(error);
-                  errorMessageParent.style.setProperty("display", "block");
-                }
-              });
-            }
-          });
-        }
-        return false;
-      };
-
-      document.getElementById("account").onsubmit = function () {
-        if (window.getComputedStyle(errorMessageAccount).display === "none") {
-          let contacts = [];
-          for (let option of document.getElementById("id_account-contacts").options) {
-            if (option.selected) {
-              contacts.push(option.value);
-            }
-          }
-
-          fetch("/api/accounts/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": csrftoken,
-            },
-
-            body: JSON.stringify({
-              name: document.getElementById("id_account-name").value,
-              country: document.getElementById("id_account-country").value,
-              industry: document.getElementById("id_account-industry").value,
-              status: document.getElementById("id_account-status").value,
-              address: document.getElementById("id_account-address").value,
-              website: document.getElementById("id_account-website").value,
-              parent_account: document.getElementById("id_account-parent_account").value,
-              assigned_to: document.getElementById("id_account-assigned_to").value,
-              contacts: contacts,
-              description: document.getElementById("id_account-description").value,
-              is_active: document.getElementById("id_parent-is_active").checked,
-              credentials: "same-origin",
-            }),
-          }).then(response => {
-            if (response.ok) {
-              return response.json().then(() => location.reload());
-            } else {
-              return response.json().then(result => {
-                errorMessageAccount.innerHTML = "";
-                const errorList = document.createElement("ul");
-                errorMessageAccount.appendChild(errorList);
-
-                //loop for showing validation errors
-                for (const err in result) {
-                  const error = document.createElement("li");
-                  error.innerHTML = result[err].join();
-                  errorList.appendChild(error);
-                }
-
-                errorList.classList.add("list");
-                errorMessageAccount.style.setProperty("display", "block");
-              });
-            }
-          });
-        }
-        return false;
-      };
-
-      // show first immediately
-      $(".account_create")
-        .modal({
-          onDeny: function () {
-            $(".account_create").hide();
-          },
-          onApprove: function () {
-            errorMessageAccount.style.removeProperty("display");
-            $("#account").submit();
-            return false;
-          },
-        })
-        .modal("show");
-
-      //Parent form validation
-      $("#parent").form({
-        fields: {
-          "parent-name": "empty",
-          "parent-category": "empty",
-        },
-      });
-
-      //Account form validation
-      $("#account").form({
-        fields: {
-          "account-name": "empty",
-          "account-country": "empty",
-          "account-industry": "empty",
-          "account-parent_account": "empty",
-          "account-assigned_to": "empty",
-        },
-      });
-    };
-  });
-</script>

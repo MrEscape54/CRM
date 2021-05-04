@@ -31,27 +31,11 @@ def account_list(request):
 def account_detail(request, account_slug):
     account = get_object_or_404(Account, slug=account_slug)
 
+    account_form = AccountForm(instance = account, prefix='account')
+    parent_form = ParentForm(instance = account.parent_account, prefix='parent')
+
     if request.method == 'POST':
-        # Instantiate both Account and Parent forms
-        account_form = AccountForm(request.POST or None, instance = account, prefix='account') 
-        parent_form = ParentForm(request.POST or None, instance = account.parent_account, prefix='parent')
-
-        # if submit is triggered by Account form
-        if request.POST.get("form_type") == 'form_account':
-            if account_form.is_valid():
-                account_form.save()
-                messages.success(request, ('Account has been updated successfully'))
-                return redirect(account)
-
-        # if submit is triggered by Parent form
-        elif request.POST.get("form_type") == 'form_parent': 
-            if parent_form.is_valid():
-                parent_form.save()
-                messages.success(request, ('Parent Account has been updated successfully'))
-                return redirect(account)
-    else: 
-        account_form = AccountForm(request.POST or None, instance = account, prefix='account')
-        parent_form = ParentForm(request.POST or None, instance = account.parent_account, prefix='parent')
+        messages.success(request, ('Account has been updated successfully'))
 
     context = {'account': account, 
                'active': "accounts", 
