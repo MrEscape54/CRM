@@ -5,6 +5,15 @@
 
 {% block content %}
 
+<div class="ui three column centered grid dj-message">
+  <div class="column">
+      <div class="ui success message trasition hidden">
+          <i class="close icon"></i>
+          <p>Account has been successfully updated</p>
+      </div>
+  </div>   
+</div>  
+
 {% if account_form.errors %} 
   <div class="ui three column centered grid dj-message">
     <div class="column">
@@ -127,6 +136,5 @@
   <script src="{% static 'global/cleave-phone.i18n.js' %}"></script>
   <script src="{% static 'global/global.js' %}"></script>  
   <script src="{% static 'accounts/js/accountUpdate.js' %}"></script>  
-
 
 {% endblock javascript %}

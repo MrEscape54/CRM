@@ -54,10 +54,9 @@ $(document).ready(function () {
 
               /* const drop = document.getElementById("id_account-parent_account");
               drop.add(option); */
-              document
-                .querySelector(".ui.mini.modal")
-                .classList.remove("transition", "visible", "active");
-              document.querySelector(".ui.mini.modal").style.display = "none";
+              const modal = document.querySelector(".ui.mini.modal");
+              modal.classList.remove("transition", "visible", "active");
+              modal.style.display = "none";
             });
           } else {
             return response.json().then(result => {
@@ -110,7 +109,18 @@ $(document).ready(function () {
           }),
         }).then(response => {
           if (response.ok) {
-            return response.json().then(() => location.reload());
+            return response.json().then(() => {
+              const modal = document.querySelector(".ui.dimmer.modals");
+              modal.classList.remove("transition", "visible", "active");
+              modal.style.display = "none";
+
+              const successMessage = document.querySelector(".success.message");
+              successMessage.style.display = "block";
+
+              setTimeout(function () {
+                location.reload();
+              }, 2000);
+            });
           } else {
             return response.json().then(result => {
               errorMessageAccount.innerHTML = "";

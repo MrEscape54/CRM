@@ -5,6 +5,15 @@
 
 {% block content %}
 
+<div class="ui three column centered grid dj-message">
+  <div class="column">
+      <div class="ui success message trasition hidden">
+          <i class="close icon"></i>
+          <p>Account has been created updated</p>
+      </div>
+  </div>   
+</div> 
+
 {% if account_form.errors %} 
   <div class="ui three column centered grid dj-message">
     <div class="column">

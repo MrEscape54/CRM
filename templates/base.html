@@ -38,19 +38,6 @@
         </div>
     </div>
 
-    {% if messages %}
-        {% for message in messages %}
-        <div class="ui three column centered grid dj-message">
-            <div class="column">
-                <div class="ui {{ message.tags }} message">
-                    <i class="close icon"></i>
-                    <p>{{message }}</p>
-                </div>
-            </div>   
-        </div>         
-        {% endfor %}
-    {% endif %}
-
     {% block content %}
     {% endblock content %}
 

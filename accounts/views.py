@@ -1,5 +1,5 @@
 from accounts.models import Account
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -11,10 +11,6 @@ def account_list(request):
 
     account_form = AccountForm(initial={'assigned_to': request.user}, prefix='account')
     parent_form = ParentForm(prefix='parent')
-
-    if request.method == 'POST':
-        messages.success(request, ('Account has been created successfully'))
-
 
     context = {'accounts': accounts, 
                'active': "accounts", 
@@ -34,9 +30,6 @@ def account_detail(request, account_slug):
     account_form = AccountForm(instance = account, prefix='account')
     parent_form = ParentForm(instance = account.parent_account, prefix='parent')
 
-    if request.method == 'POST':
-        messages.success(request, ('Account has been updated successfully'))
-
     context = {'account': account, 
                'active': "accounts", 
                'account_form': account_form, 
@@ -46,4 +39,3 @@ def account_detail(request, account_slug):
                }
 
     return render(request, "accounts/account_detail.html", context)
-    
